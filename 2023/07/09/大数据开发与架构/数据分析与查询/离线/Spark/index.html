@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="*对MapReduce的优化：能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce的算法。 *中间输出结果可以保存在内存中，从而不再需要读写HDFS。 *与Hadoop MapReduce计算框架相比，Spark所采用的Executor有两个优点：  利用多线程来执行具体的任务减少任务的启动开销。  Executor中有一个BlockManager存储模块，会将内存和磁盘共同作为存储设备">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="*对MapReduce的优化：能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce的算法。 *中间输出结果可以保存在内存中，从而不再需要读写HDFS。 *与Hadoop MapReduce计算框架相比，Spark所采用的Executor有两个优点：  利用多线程来执行具体的任务减少任务的启动开销。  Executor中有一个BlockManager存储模块，会将内存和磁盘共同作为存储设备">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688836594121.jpg">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688836681602.jpg">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688837245488.jpg">
+<meta property="article:published_time" content="2023-07-08T17:14:36.000Z">
+<meta property="article:modified_time" content="2023-08-17T02:48:54.436Z">
+<meta property="article:author" content="昨夜如梦">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688836594121.jpg">
+  
+  
+  
+  <title>Spark - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spark"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 01:14" pubdate>
+          2023年7月9日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Spark</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>*对MapReduce的优化：能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce的算法。</p>
+<p>*中间输出结果可以保存在内存中，从而不再需要读写HDFS。</p>
+<p>*与Hadoop MapReduce计算框架相比，Spark所采用的Executor有两个优点：</p>
+<ul>
+<li><p>利用多线程来执行具体的任务减少任务的启动开销。</p>
+</li>
+<li><p>Executor中有一个BlockManager存储模块，会将内存和磁盘共同作为存储设备，有效减少IO开销。</p>
+</li>
+</ul>
+<h2 id="运行架构"><a href="#运行架构" class="headerlink" title="运行架构"></a>运行架构</h2><p><img src="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688836594121.jpg" srcset="/img/loading.gif" lazyload alt="1688836594121"></p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>*RDD（Resilient Distributed Dataset）叫做弹性分布式数据集，是Spark中最基本的数据抽象，它代表一个不可变、可分区、里面的元素可并行计算的集合。RDD具有数据流模型的特点：自动容错、位置感知性调度和可伸缩性。RDD允许用户在执行多个查询时显式地将工作集缓存在内存中，后续的查询能够重用工作集，这极大地提升了查询速度。</p>
+<p>*SparkContext：应用启动时创建的Spark上下文对象，是进行Spark应用开发的主要接口，是Spark上层应用与底层实现的中转站。</p>
+<p>*DAG：有向无环图，反映RDD之间的依赖关系。</p>
+<p>*Job：一个Job包含多个RDD及作用于相应RDD上的各种操作，它包含很多task的并行计算，可以认为是SparkRDD里面的action，每个action的触发会生成一个job。用户提交的Job会提交给DAGScheduler，Job会被分解成Stage，Stage会被细化成Task，Task简单的说就是在一个数据partition上的单个数据处理流程。</p>
+<p>*Stage：Job中Stage之间会有依赖关系。可以利用这些依赖关系把Job所有stage串连起来形成一个有向无环图。在单个job内是根据shuffle算子来拆分stage的，shuffle之前是一个stage，shuffle之后是另一个stage，如果一个job中有多个shuffle，那么每个shuffle之前都是一个stage。一个job被提交运行之后，将会触发stage及其父stage的执行。</p>
+<p>*Task：在Spark中有两类task，一类是shuffleMapTask，一类是resultTask，第一类task的输出是shuffle（涉及到reduce，即合并等操作）所需数据，第二类task的输出是result，stage的划分也以此为依据。</p>
+<p>*依赖（宽、窄两种依赖）：</p>
+<ul>
+<li><p>窄依赖：指父RDD的每一个分区最多被一个子RDD的分区所用。</p>
+</li>
+<li><p>宽依赖：指子RDD的分区依赖于父RDD的所有分区。</p>
+</li>
+<li><p>窄依赖不需要对分区数据进行 shuffle ，而宽依赖需要。所以窄依赖都会在一个 stage 中， 而宽依赖会作为 stage 的交界处。</p>
+</li>
+</ul>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p><img src="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688836681602.jpg" srcset="/img/loading.gif" lazyload alt="1688836681602"></p>
+<ol>
+<li>为应用构建起基本的运行环境，即由Driver创建一个SparkContext进行资源的申请、任务的分配和监控。</li>
+<li>资源管理器为Executor分配资源，并启动Executor进程</li>
+<li>SparkContext根据RDD的依赖关系构建DAG图，DAG图提交给DAGScheduler解析成Stage，然后把一个个TaskSet提交给底层调度器TaskScheduler处理。</li>
+<li>Executor向SparkContext申请Task，TaskScheduler将Task发放给Executor运行并提供应用程序代码。</li>
+<li>Task在Executor上运行把执行结果反馈给TaskScheduler，然后反馈给DAGScheduler，运行完毕后写入数据并释放所有资源。</li>
+</ol>
+<h2 id="常用操作（键值对RDD（Pair）除外）"><a href="#常用操作（键值对RDD（Pair）除外）" class="headerlink" title="常用操作（键值对RDD（Pair）除外）"></a>常用操作（键值对RDD（Pair）除外）</h2><p>*Bash：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/spark-shell <span class="hljs-comment">#启动 Spark Shell</span><br></code></pre></td></tr></table></figure>
+
+<p>*Spark Shell（Scala语句）：</p>
+<h3 id="转换操作（Transformation）"><a href="#转换操作（Transformation）" class="headerlink" title="转换操作（Transformation）"></a>转换操作（Transformation）</h3><p>*以RDD做为输入参数，然后输出一个或者多个RDD。Map()、Filter()这些都属于转换操作。</p>
+<p>*转换操作是惰性求值操作，只有在碰到行动操作的时候，转换操作才会真正实行。某些操作支持管道化，这是一种比较有效的性能优化手段。</p>
+<p>*转换操作分两种：窄转换和宽转换。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Scala"><span class="hljs-comment">//以下的func一般为para_name=&gt;func(para_name)格式</span><br><span class="hljs-comment">//1.单个操作</span><br><span class="hljs-type">RDD</span>.map(func) <span class="hljs-comment">//作用于RDD中的每个对象，并将返回结果作为结果RDD中对应的元素的值</span><br><span class="hljs-type">RDD</span>.flatMap(func) <br>    <span class="hljs-comment">//和map类似，只不过map返回的是一个个元素，而flatMap返回的则是一个返回值序列的迭代器（详细区别见IV~）</span><br><span class="hljs-type">RDD</span>.filter(func) <span class="hljs-comment">//将RDD中满足该函数的元素放入新的RDD中返回</span><br><span class="hljs-type">RDD</span>.distinct() <span class="hljs-comment">//去重</span><br><span class="hljs-type">RDD</span>.sample(withReplacement,traction,[send]) <span class="hljs-comment">//对RDD采样以及是否转换</span><br>    <span class="hljs-comment">//withReplacement：表示抽出样本后是否在放回去，true表示会放回去，这也就意味着抽出的样本可能有重复</span><br>    <span class="hljs-comment">//fraction ：抽出多少，这是一个double类型的参数,0-1之间，eg:0.3表示抽出30%</span><br>    <span class="hljs-comment">//send：表示一个种子，根据这个seed随机抽取，用于调试，有时候不知道是程序出问题还是数据出了问题，就可以将这个参数设置为定值</span><br><span class="hljs-comment">//2.双个操作</span><br><span class="hljs-type">RDD1</span>.intersection(<span class="hljs-type">RDD2</span>) <span class="hljs-comment">//返回两个RDD中都有的元素，类似于集合中的交集</span><br><span class="hljs-type">RDD1</span>.subtract(<span class="hljs-type">RDD2</span>) <span class="hljs-comment">//返回一个由只存在第一个RDD1而不存在与第二个RDD2中的所有元素组成的RDD</span><br><span class="hljs-type">RDD1</span>.cartesian(<span class="hljs-type">RDD2</span>) <span class="hljs-comment">//求笛卡尔积，求出所有可能的(a,b)对</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="行动操作（Actions）"><a href="#行动操作（Actions）" class="headerlink" title="行动操作（Actions）"></a>行动操作（Actions）</h3><p>数据执行部分，其通过执行count，reduce，collect等方法真正执行数据的计算部分。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Scala"><span class="hljs-type">RDD</span>.count() <span class="hljs-comment">//统计RDD中元素的个数</span><br><span class="hljs-type">RDD</span>.collect() <br>    <span class="hljs-comment">//收集数据，保存在一个新的数据结构中，用来持久化，需要注意的是collect不能用在大规模数据集上</span><br><span class="hljs-type">RDD</span>.first() <span class="hljs-comment">//从文件读取第一个记录</span><br><span class="hljs-type">RDD</span>.take(num) <span class="hljs-comment">//用于取回num个value，在这里结合map使用，方便查看值</span><br><span class="hljs-type">RDD</span>.reduce(func) <br>    <span class="hljs-comment">//操作两个RDD的元素类型的数据并返回一个同样类型的新元素（fold功能与其相同，但带有初始值）</span><br><span class="hljs-type">RDD</span>.aggregate() <br>    <span class="hljs-comment">//设置返回类型的初始值，然后通过第一个函数把RDD中的元素合并起来放入累加器，通过第二个函数把累加器两两合并</span><br>    <span class="hljs-comment">//示例：</span><br>    <span class="hljs-keyword">val</span> num1 = sc.parallelize(<span class="hljs-type">List</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>))<br>    <span class="hljs-keyword">val</span> result = num1.aggregate((<span class="hljs-number">0</span>,<span class="hljs-number">0</span>))(<br>    | (acc,value) =&gt; (acc._1 + value,acc._2+<span class="hljs-number">1</span>),<br>    | (acc1,acc2) =&gt;(acc1._1+acc2._1,acc1._2+acc2._2)<br>    | )<br>    result: (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>) = (<span class="hljs-number">10</span>,<span class="hljs-number">4</span>)<br>        <span class="hljs-type">RDD</span>.foreach(func) <span class="hljs-comment">//对RDD中的每个元素使用给定的函数</span><br>        <span class="hljs-type">RDD</span>.top(num) <span class="hljs-comment">//从RDD中返回前边的num个元素</span><br>        <span class="hljs-type">RDD</span>.takeSample(withReplacement,num,[send]) <span class="hljs-comment">//从RDD中返回任意一些元素</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="其他操作（主要为创建、I-x2F-O）"><a href="#其他操作（主要为创建、I-x2F-O）" class="headerlink" title="其他操作（主要为创建、I&#x2F;O）"></a>其他操作（主要为创建、I&#x2F;O）</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs Scala"><span class="hljs-comment">//1.创建RDD</span><br><span class="hljs-keyword">val</span> data = sc.textFile(<span class="hljs-string">&quot;data.txt&quot;</span>) <br>    <span class="hljs-comment">//从本地文件系统创建 data.txt，其中，sc 是 SparkContext 对象，在启动 Spark Shell 的时候自动生成的</span><br>    <span class="hljs-comment">//如果数据已经存在外部文件系统，例如本地文件系统，HDFS，HBase等，可使用此方式，即调用 SparkContext 的 textFile 方法，并把文件目录或者路径作为参数。</span><br>    <span class="hljs-comment">//用 Parallelize 函数创建 RDD，这种方法可以用于数据集已经存在的情况</span><br><span class="hljs-keyword">val</span> no = <span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>)<br><span class="hljs-keyword">val</span> noData = sc.parallelize(no) <br>spark.read.csv(<span class="hljs-string">&quot;path/of/csv/file&quot;</span>).rdd <span class="hljs-comment">//从CSV文件生成RDD（这里的.rdd方法把DataSet&lt;Row&gt;转换成RDD&lt;Row&gt;类型）</span><br><span class="hljs-keyword">val</span> dataRDD = spark.read.json(<span class="hljs-string">&quot;path/of/json/file&quot;</span>).rdd <span class="hljs-comment">//从文本文件生成RDD</span><br><span class="hljs-comment">//2.操作RDD</span><br>data.cache/persist(<span class="hljs-type">StorageLevel</span>.<span class="hljs-type">MEMORY_ONLY</span>[_SER]/<span class="hljs-type">MEMORY_AND_DISK</span>[_SER]) <br>    <span class="hljs-comment">//缓存RDD（命令执行完不会立即被缓存，而是直到执行操作后才会），四种参数按顺序（从无_SER到有_SER）持久化程度递增</span><br>data.unpersist() <span class="hljs-comment">//清除RDD缓存</span><br><span class="hljs-keyword">val</span> <span class="hljs-type">DFData</span> = data.filter(line =&gt; line.contains(<span class="hljs-string">&quot;Elephant&quot;</span>)) <br>	<span class="hljs-comment">//过滤操作可以使用 RDD 的 filter 操作，即从已经存在的 RDD 中按条件过滤并创建新 RDD</span><br>data.partitions.length <span class="hljs-comment">//查看RDD分区数</span><br><span class="hljs-keyword">var</span> hFile = sc.textFile(<span class="hljs-string">&quot;hdfs://localhost:9000/inp&quot;</span>) <span class="hljs-comment">//从HDFS读取数据</span><br>wc.saveAsTextFile(<span class="hljs-string">&quot;hdfs://localhost:9000/out&quot;</span>) <span class="hljs-comment">//把计算结果写入HDFS文件</span><br>stop():<span class="hljs-type">Unit</span> <br>	<span class="hljs-comment">//关闭SparkContext（一个JVM只能运行一个SparkContext，如果想新建SparkContext，必须把旧的停掉）</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="概念深入辨析"><a href="#概念深入辨析" class="headerlink" title="概念深入辨析"></a>概念深入辨析</h3><p>map(func)函数会对每一条输入进行指定的func操作，然后为每一条输入返回一个对象；而flatMap(func)也会对每一条输入进行执行的func操作，然后每一条输入返回一个相对，但是最后会将所有的对象再合成为一个对象；从返回的结果的数量上来讲，map返回的数据对象的个数和原来的输入数据是相同的，而flatMap返回的个数则是不同的。</p>
+<p><img src="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Spark/1688837245488.jpg" srcset="/img/loading.gif" lazyload alt="1688837245488"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/" class="category-chain-item">大数据开发&amp;架构</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/4-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%9F%A5%E8%AF%A2/" class="category-chain-item">4.数据分析&amp;查询</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/4-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/" class="category-chain-item">离线</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spark</div>
+      <div>http://zuoyerumeng.site/2023/07/09/大数据开发与架构/数据分析与查询/离线/Spark/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Hive/" title="Hive">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hive</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9F%A5%E8%AF%A2/%E7%A6%BB%E7%BA%BF/Hadoop%20MapReduce/" title="Hadoop MapReduce">
+                        <span class="hidden-mobile">Hadoop MapReduce</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

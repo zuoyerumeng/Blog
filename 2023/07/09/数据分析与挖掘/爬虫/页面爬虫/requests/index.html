@@ -1,0 +1,950 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="通用代码框架12345678910111213import requestsdef getHTMLText(url):    try:        r&#x3D;requests.get(url,timeout&#x3D;30)        r.raise_for_status() #如果状态不是200，引发HTTPError异常        r.encoding&#x3D;r.apparent_encoding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="requests">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E7%88%AC%E8%99%AB/%E9%A1%B5%E9%9D%A2%E7%88%AC%E8%99%AB/requests/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="通用代码框架12345678910111213import requestsdef getHTMLText(url):    try:        r&#x3D;requests.get(url,timeout&#x3D;30)        r.raise_for_status() #如果状态不是200，引发HTTPError异常        r.encoding&#x3D;r.apparent_encoding">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-09T14:48:22.000Z">
+<meta property="article:modified_time" content="2023-08-17T02:59:52.617Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>requests - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="requests"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 22:48" pubdate>
+          2023年7月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">requests</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="通用代码框架"><a href="#通用代码框架" class="headerlink" title="通用代码框架"></a>通用代码框架</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getHTMLText</span>(<span class="hljs-params">url</span>):<br>    <span class="hljs-keyword">try</span>:<br>        r=requests.get(url,timeout=<span class="hljs-number">30</span>)<br>        r.raise_for_status() <span class="hljs-comment">#如果状态不是200，引发HTTPError异常</span><br>        r.encoding=r.apparent_encoding<br>        <span class="hljs-keyword">return</span>  r.text<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;产生异常&quot;</span><br>    <br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&quot;main&quot;</span>:<br>    url=<span class="hljs-string">&quot;http://www.——.com&quot;</span><br>    <span class="hljs-built_in">print</span>(getHTMLText(url))<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h2><p>7个主要方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">requests.request ()</th>
+<th align="center">构造一个请求，支撑以下各方法的基础方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">requests.get ()</td>
+<td align="center">获取HTML网页的主要方法，对应于HTTP的GET</td>
+</tr>
+<tr>
+<td align="center">requests.head()</td>
+<td align="center">获取HTML网页头信息的方法，对应于HTTP的HEAD</td>
+</tr>
+<tr>
+<td align="center">requests.post ()</td>
+<td align="center">向HTML网页提交POST请求的方法，对应于HTTP的POST</td>
+</tr>
+<tr>
+<td align="center">requests.put ()</td>
+<td align="center">向HTML网页提交PUT请求的方法，对应于HTTP的PUT</td>
+</tr>
+<tr>
+<td align="center">requests.patch()</td>
+<td align="center">向HTML网页提交局部修改请求，对应于HTTP的PATCH</td>
+</tr>
+<tr>
+<td align="center">requests.delete ()</td>
+<td align="center">向HTML页面提交删除请求，对应于HTTP的DELETE</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GET</td>
+<td align="left">请求获取URL位置的资源</td>
+</tr>
+<tr>
+<td align="center">HEAD</td>
+<td align="left">请求获取URL位置资源的响应消息报告，即获得该资源的头部信息</td>
+</tr>
+<tr>
+<td align="center">POST</td>
+<td align="left">请求向URL位置的资源后附加新的数据</td>
+</tr>
+<tr>
+<td align="center">PUT</td>
+<td align="left">请求向URL位置存储一个资源，覆盖原URL位置的资源</td>
+</tr>
+<tr>
+<td align="center">PATCH</td>
+<td align="left">请求局部更新URL位置的资源，即改变该处资源的部分内容</td>
+</tr>
+<tr>
+<td align="center">DELETE</td>
+<td align="left">请求删除URL位置存储的资源</td>
+</tr>
+</tbody></table>
+<p>PATCH和PUT的区别：</p>
+<p>假设URL位置有一组数据UserInfo，包括UserID、UserName等20个字段,</p>
+<p>需求：用户修改了UserName，其他不变.</p>
+<p>• 采用PATCH，仅向URL提交UserName的局部更新请求</p>
+<p>• 采用PUT，必须将所有20个字段一并提交到URL，未提交字段被删除</p>
+<p>PATCH的最主要好处：节省网络带宽</p>
+<h2 id="详细介绍"><a href="#详细介绍" class="headerlink" title="详细介绍"></a>详细介绍</h2><h3 id="request"><a href="#request" class="headerlink" title="request()"></a>request()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">requests.request(method, url, **kwargs)<br>r = requests.request(<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27; http://python123.io/ws&#x27;</span>, params=kv) <span class="hljs-comment">#示例</span><br></code></pre></td></tr></table></figure>
+
+<p>method : 请求方式，对应get&#x2F;put&#x2F;post等7种</p>
+<p>**kwargs: 12个控制访问的参数,均为可选项</p>
+<p>params : 字典或字节序列，作为参数增加到url中</p>
+<p>data : 字典、字节序列或文件对象，作为Request的内容</p>
+<p>json : JSON格式的数据，作为Request的内容</p>
+<p>headers : 字典，HTTP定制头</p>
+<p>cookies : 字典或CookieJar，Request中的cookie</p>
+<p>auth : 元组，支持HTTP认证功能</p>
+<p>files : 字典类型，传输文件</p>
+<p>timeout : 设定超时时间，秒为单位</p>
+<p>proxies : 字典类型，设定访问代理服务器，可以增加登录认证</p>
+<p>cert : 本地SSL证书路径</p>
+<h3 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">r=requests.get(url, params=<span class="hljs-literal">None</span>, **kwargs) <span class="hljs-comment">#构造一个向服务器请求资源的Request对象，返回一个包含服务器资源的Response对象</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>params : url中的额外参数，字典或字节流格式，可选（如href，则对应选取出超链接的网址内容）</p>
+</li>
+<li><p>response对象的属性</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">r.status_code</th>
+<th align="center">HTTP请求的返回状态，200表示连接成功，404表示失败</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">r.text</td>
+<td align="center">HTTP响应内容的字符串形式，即，url对应的页面内容</td>
+</tr>
+<tr>
+<td align="center">r.encoding</td>
+<td align="center">从HTTP header中猜测的响应内容编码方式</td>
+</tr>
+<tr>
+<td align="center">r.apparent_encoding</td>
+<td align="center">从内容中分析出的响应内容编码方式 ( 备选编码方式 )</td>
+</tr>
+<tr>
+<td align="center">r.content</td>
+<td align="center">HTTP响应内容的二进制形式</td>
+</tr>
+</tbody></table>
+<p>*若为404则没有后三项</p>
+<p>*kwargs参数同上~</p>
+<p>*可能出现的异常情况:</p>
+<table>
+<thead>
+<tr>
+<th align="center">requests.ConnectionError</th>
+<th align="center">网络连接错误异常，如DNS查询失败、拒绝连接等</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">requests.HTTPError</td>
+<td align="center">HTTP错误异常</td>
+</tr>
+<tr>
+<td align="center">requests.URLRequired</td>
+<td align="center">URL缺失异常</td>
+</tr>
+<tr>
+<td align="center">requests.TooManyRedirects</td>
+<td align="center">超过最大重定向次数，产生重定向异常</td>
+</tr>
+<tr>
+<td align="center">requests.ConnectTimeout</td>
+<td align="center">连接远程服务器超时异常</td>
+</tr>
+<tr>
+<td align="center">requests.Timeout</td>
+<td align="center">请求URL超时，产生超时异常</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">r.raise_for_status()</th>
+<th align="left">如果不是200，产生异常 requests.HTTPError</th>
+</tr>
+</thead>
+</table>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">requests.get(url, params=<span class="hljs-literal">None</span>, **kwargs)<br>requests.head(url, **kwargs)<br>requests.post(url, data=<span class="hljs-literal">None</span>, json=<span class="hljs-literal">None</span>, **kwargs)<br>requests.put(url, data=<span class="hljs-literal">None</span>, **kwargs)<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/" class="category-chain-item">数据分析&amp;挖掘</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/1-%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/" class="category-chain-item">1.数据爬取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/1-%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/%E9%A1%B5%E9%9D%A2%E7%88%AC%E8%99%AB/" class="category-chain-item">页面爬虫</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%88%AC%E8%99%AB/" class="print-no-link">#爬虫</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>requests</div>
+      <div>http://zuoyerumeng.site/2023/07/09/数据分析与挖掘/爬虫/页面爬虫/requests/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E7%88%AC%E8%99%AB/%E9%A1%B5%E9%9D%A2%E7%88%AC%E8%99%AB/Beautiful-Soup/" title="Beautiful-Soup">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Beautiful-Soup</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E7%88%AC%E8%99%AB/%E9%A1%B5%E9%9D%A2%E7%88%AC%E8%99%AB/%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84/" title="总体架构">
+                        <span class="hidden-mobile">总体架构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

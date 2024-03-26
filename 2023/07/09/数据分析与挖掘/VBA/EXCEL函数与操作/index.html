@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="软件操作、快捷键动态链接：复制表格+选择性黏贴中选中黏贴链接 F4：重复上一步操作 函数分类、统计函数 求和类 *Count(… : …)统计数字的个数 *Counta统计非空单元格个数 *Countif(条件范围，条件)根据条件统计个数、Countifs(条件范围，条件，条件范围，条件…)多条件统计函数 *Sumproduct、Sumif(条件范围,条件,[求和数值的范围])  其他 *Aver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Excel函数与操作">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/VBA/EXCEL%E5%87%BD%E6%95%B0%E4%B8%8E%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="软件操作、快捷键动态链接：复制表格+选择性黏贴中选中黏贴链接 F4：重复上一步操作 函数分类、统计函数 求和类 *Count(… : …)统计数字的个数 *Counta统计非空单元格个数 *Countif(条件范围，条件)根据条件统计个数、Countifs(条件范围，条件，条件范围，条件…)多条件统计函数 *Sumproduct、Sumif(条件范围,条件,[求和数值的范围])  其他 *Aver">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-09T11:19:25.000Z">
+<meta property="article:modified_time" content="2023-08-17T02:57:04.740Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="Excel">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Excel函数与操作 - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Excel函数与操作"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 19:19" pubdate>
+          2023年7月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Excel函数与操作</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="软件操作、快捷键"><a href="#软件操作、快捷键" class="headerlink" title="软件操作、快捷键"></a>软件操作、快捷键</h1><p>动态链接：复制表格+选择性黏贴中选中黏贴链接</p>
+<p>F4：重复上一步操作</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="分类、统计函数"><a href="#分类、统计函数" class="headerlink" title="分类、统计函数"></a>分类、统计函数</h2><ul>
+<li><p>求和类</p>
+<p>*Count(… : …)统计数字的个数</p>
+<p>*Counta统计非空单元格个数</p>
+<p>*Countif(条件范围，条件)根据条件统计个数、Countifs(条件范围，条件，条件范围，条件…)多条件统计函数</p>
+<p>*Sumproduct、Sumif(条件范围,条件,[求和数值的范围])</p>
+</li>
+<li><p>其他</p>
+<p>*Averageif(s)</p>
+<p>*Max(ifs)&#x2F;Min(ifs)</p>
+<p>*Large&#x2F;Small(…,N)返回第N个最大&#x2F;小值</p>
+<p>*Trimmean(…,m&#x2F;N)从N个数中按比例（默认1：1）去掉m个最大和最小值后计算平均值</p>
+<p>*Rank(单元格，范围）</p>
+<p>*Mode返回出现最多的数字</p>
+<p>*Quartile(范围，i)上i分位数</p>
+</li>
+</ul>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><h3 id="查询类"><a href="#查询类" class="headerlink" title="查询类"></a>查询类</h3><p>*LEFT&#x2F;RIGHT(text,len)从text的第一个&#x2F;最后一个字符开始返回len个字符</p>
+<p>*MID(text,start_num,num_chars)</p>
+<ul>
+<li><p>text: 字符串</p>
+</li>
+<li><p>start_num: text中从左数起的位数</p>
+</li>
+<li><p>num_chars: 字符的个数</p>
+</li>
+</ul>
+<p>*Find&#x2F;Search(tm,base)字符串匹配，返回所处的位置，若无查找值则返回error型</p>
+<h3 id="操作类"><a href="#操作类" class="headerlink" title="操作类"></a>操作类</h3><p>Upper&#x2F;Lower&#x2F;Proper（首字母大写）</p>
+<h3 id="连接类"><a href="#连接类" class="headerlink" title="连接类"></a>连接类</h3><p>*Trim移除多余的空格（超过一个变为一个）</p>
+<p>*Concatenate(str1,str2…)将多个字符串连接成一个</p>
+<h3 id="替换类"><a href="#替换类" class="headerlink" title="替换类"></a>替换类</h3><p>REPLACE(old_test,start_num,num_chars,new_test)</p>
+<ul>
+<li><p>old_text: 待替换的字符</p>
+</li>
+<li><p>start_num: old_text中从左数起的位数</p>
+</li>
+<li><p>num_chars: 所需要替换的字符的个数</p>
+</li>
+<li><p>new_text: 待替换进旧字符串的新字符串</p>
+</li>
+</ul>
+<p>SUBSTITUTE(test,old_text,new_text,instance_num)</p>
+<ul>
+<li><p>text: 包含待替换字符串的字符串</p>
+</li>
+<li><p>old_text: 待替换字符串</p>
+</li>
+<li><p>new_text: 新字符串</p>
+</li>
+<li><p>instance_num: 所需要替换的字符串在所有字符串的位置，不填该参数则表示全部替换</p>
+</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>Len计算长度</p>
+<p>Lenb计算字节数（一个汉字两个字节）</p>
+<h2 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h2><h3 id="获取现在时间"><a href="#获取现在时间" class="headerlink" title="获取现在时间"></a>获取现在时间</h3><p>now()、today()返回系统的日期和时间&#x2F;日期</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>timevalue将文本格式的时间转换为序列号</p>
+<p>year&#x2F;month&#x2F;day(date)返回年&#x2F;月&#x2F;日</p>
+<p>date(year,month,day)返回日期</p>
+<p>hour&#x2F;minute&#x2F;second返回小时&#x2F;分钟&#x2F;秒钟数值（0-23或0-59）</p>
+<p>time(hout,minute,second)返回时间</p>
+<h3 id="时间计算"><a href="#时间计算" class="headerlink" title="时间计算"></a>时间计算</h3><p>weeknum&#x2F;weekday(date,set)返回日期是一年&#x2F;一周的第几周&#x2F;第几天（set常设为2，意为星期一是一周的第一天）</p>
+<p>datedif(date1,date2,type) type为”MD”表示忽略日期的年份和月份，求间隔天数；”YD”表示忽略日期年份，求间隔天数；”YM”表示忽略日期年份，求年间隔月数</p>
+<p>edate(日期，几个月)计算保质期、工龄</p>
+<p>workday(开始日期，工作日数量，[需要减掉的节假日]) 计算n个工作日后的日期（已减去周末）</p>
+<p>networkdays(开始日期，结束日期，[需要减掉的节假日]）计算工作日天数（已减去周末）</p>
+<h2 id="查找-amp-引用"><a href="#查找-amp-引用" class="headerlink" title="查找&amp;引用"></a>查找&amp;引用</h2><p>match(查找值，查找区域或数组，[配备类型]) 返回查找值在查找区域或数组的相对位置</p>
+<p>vlookup(查找值，查找区域（区域中第一列须为查找值所在的列），区域内第几列，[匹配类型])</p>
+<p>lookup(查找值，查找区域，[结果区域]) 从单行&#x2F;列中查找一个值，采用二分查找算法（即要数据先排序）</p>
+<p>index(区域，行号，列号) 返回给定区域中特定行列单位格的交叉值或引用（PS：当不能满足vlookup查找值在查找区域第一列的要求时可考虑match+index！）</p>
+<p>index((区域1，区域2，…)，行号，列号，第几个区域) 返回给定区域中特定行列单位格的交叉值或引用</p>
+<p>indirect(引用区域，[引用格式]) 返回文本字符串所指定的引用（引用区域加””，为直接引用文本；引用区域不加””,为应用那个该文本表示的位置）</p>
+<p>offset(基准位置，几行(正下负上)，几列(正右负左)，[返回几行]，[返回几列]) 将指定的位置作为参照系，偏移特定的行列返回引用</p>
+<p>Row&#x2F;Column返回引用的行标&#x2F;列标（若有多行&#x2F;列则返回第一行&#x2F;列）</p>
+<p>Rows&#x2F;Columns返回引用的行数&#x2F;列数</p>
+<h2 id="信息函数"><a href="#信息函数" class="headerlink" title="信息函数"></a>信息函数</h2><h3 id="信息类型"><a href="#信息类型" class="headerlink" title="信息类型"></a>信息类型</h3><p>CELL(info_type，引用区域) 返回某一引用区域的左上角单元格的格式、位置或内容等信息，该函数主要用于保持与其它电子表格程序的兼容性（info_type指定所需要的单元格信息的类型）  </p>
+<p>ERROR.TYPE(error_val) 返回具体的错误类型</p>
+<p>INFO(type_text) 返回有关当前操作环境的的信息（Type_text是一文本，指明所要返回的信息类型）</p>
+<p>Sheet 返回指定工作表的编号</p>
+<p>Sheets 返回引用中的工作表数目</p>
+<p>Type 以整数形式返回值的数据类型，其中1为数值、2为文字、4为逻辑值、16为错误值、64位数组、128位复合数据</p>
+<h3 id="判断类型"><a href="#判断类型" class="headerlink" title="判断类型"></a>判断类型</h3><p>Isblank、Iserr（检查是否为#N&#x2F;A之外的错误）、Iserror、Isformula（是否包含公式）、Islogical、Isna（是否为#N&#x2F;A）、Isref（是否为引用值）</p>
+<h3 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h3><p>N(…)转换为数值形式（转换不了的变成0）</p>
+<p>Na转换为#N&#x2F;A</p>
+<h2 id="数学和三角函数"><a href="#数学和三角函数" class="headerlink" title="数学和三角函数"></a>数学和三角函数</h2><h3 id="取整"><a href="#取整" class="headerlink" title="取整"></a>取整</h3><p>CEILING 将数字舍入为最接近的整数</p>
+<p>FLOOR 沿绝对值减小方向去尾舍入</p>
+<p>ROUNDUP 沿绝对值增大的方向舍入一个数字</p>
+<p>EVEN 返回沿绝对值增大方向，将一个数值取整为最接近的偶数</p>
+<p>INT向下取整</p>
+<p>ROUND 按指定位数四舍五入</p>
+<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><p>ACOS 反余弦值</p>
+<p>BASE 将一个数转换为具有给定基数的文本表示</p>
+<p>DEGREES 将弧度转换为度</p>
+<p>LOG(N,base）</p>
+<p>MOD取余</p>
+<p>QUOTIENT返回商的整数部分</p>
+<p>RAND返回[0,1)的随机数</p>
+<p>RANDBETWEEN</p>
+<h2 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h2><p>VALUE转为数值类型</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/" class="category-chain-item">数据分析&amp;挖掘</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/0-4-VBA/" class="category-chain-item">0-4.VBA</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="print-no-link">#数据分析</a>
+      
+        <a href="/tags/Excel/" class="print-no-link">#Excel</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Excel函数与操作</div>
+      <div>http://zuoyerumeng.site/2023/07/09/数据分析与挖掘/VBA/EXCEL函数与操作/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/VBA/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="基本操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基本操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="机器学习十大算法及应用">
+                        <span class="hidden-mobile">机器学习十大算法及应用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

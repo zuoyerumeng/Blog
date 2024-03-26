@@ -1,0 +1,822 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="*高度可扩展的高性能分布式列式数据库 架构 使用命令cqlsh提示符 1cqlsh -- 启动cqlsh   Shell 1234567891011HELP -显示所有cqlsh命令的帮助主题。CAPTURE -捕获命令的输出并将其添加到文件。CONSISTENCY -显示当前一致性级别，或设置新的一致性级别。COPY -将数据复制到Cassandra并从Cassandra复制数据。DESCRIB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cassandra">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Cassandra/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="*高度可扩展的高性能分布式列式数据库 架构 使用命令cqlsh提示符 1cqlsh -- 启动cqlsh   Shell 1234567891011HELP -显示所有cqlsh命令的帮助主题。CAPTURE -捕获命令的输出并将其添加到文件。CONSISTENCY -显示当前一致性级别，或设置新的一致性级别。COPY -将数据复制到Cassandra并从Cassandra复制数据。DESCRIB">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Cassandra/1688840243364.jpg">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Cassandra/1688840302564.jpg">
+<meta property="article:published_time" content="2023-07-08T18:16:32.000Z">
+<meta property="article:modified_time" content="2023-08-17T02:48:00.808Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Cassandra/1688840243364.jpg">
+  
+  
+  
+  <title>Cassandra - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Cassandra"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 02:16" pubdate>
+          2023年7月9日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Cassandra</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>*高度可扩展的高性能分布式列式数据库</p>
+<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Cassandra/1688840243364.jpg" srcset="/img/loading.gif" lazyload alt="1688840243364"></p>
+<h1 id="使用命令"><a href="#使用命令" class="headerlink" title="使用命令"></a>使用命令</h1><p>cqlsh提示符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs CQL">cqlsh -- 启动cqlsh<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Cassandra/1688840302564.jpg" srcset="/img/loading.gif" lazyload alt="1688840302564"></p>
+<p>Shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">HELP -显示所有cqlsh命令的帮助主题。<br>CAPTURE -捕获命令的输出并将其添加到文件。<br>CONSISTENCY -显示当前一致性级别，或设置新的一致性级别。<br>COPY -将数据复制到Cassandra并从Cassandra复制数据。<br>DESCRIBE -描述Cassandra及其对象的当前集群。<br>EXPAND -纵向扩展查询的输出。<br>EXIT -使用此命令，可以终止cqlsh。<br>PAGING -启用或禁用查询分页。<br>SHOW -显示当前cqlsh会话的详细信息，如Cassandra版本，主机或数据类型假设。<br>SOURCE -执行包含CQL语句的文件。<br>TRACING -启用或禁用请求跟踪。<br></code></pre></td></tr></table></figure>
+
+<p>具体用法： <a target="_blank" rel="noopener" href="https://www.w3cschool.cn/cassandra/cassandra_shell_commands.html">https://www.w3cschool.cn/cassandra/cassandra_shell_commands.html</a></p>
+<h1 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h1><h2 id="数据定义命令"><a href="#数据定义命令" class="headerlink" title="数据定义命令"></a>数据定义命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs CQL">CREATE/ALTER KEYSPACE &lt;identifier&gt; WITH &lt;properties&gt; -创建/更改KeySpace，其中properties举例：replication = &#123;&#x27;class&#x27;: ‘Strategy name’, &#x27;replication_factor&#x27; : ‘No.Of  replicas’&#125;<br>CREATE (TABLE | COLUMNFAMILY) (&#x27;&lt;column-definition&gt;&#x27; , &#x27;&lt;column-definition&gt;&#x27;)(WITH  AND ) -创建表<br>ALTER (TABLE | COLUMNFAMILY) &lt;tablename&gt; &lt;instruction&gt; -修改表<br>DROP TABLE &lt;tablename&gt; -删除表<br>TRUNCATE &lt;tablename&gt; -截断表<br>CREATE INDEX &lt;identifier&gt; ON &lt;tablename&gt; -创建索引<br>DROP INDEX &lt;identifier&gt; -删除索引<br>-*批处理<br>BEGIN BATCH<br>&lt;insert-stmt&gt;/ &lt;update-stmt&gt;/ &lt;delete-stmt&gt;（可以有多个、多种的语句）<br>APPLY BATCH<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="数据操作命令"><a href="#数据操作命令" class="headerlink" title="数据操作命令"></a>数据操作命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs CQL">-添加<br>INSERT INTO &lt;tablename&gt;<br>(&lt;column1 name&gt;, &lt;column2 name&gt;....)<br>VALUES (&lt;value1&gt;, &lt;value2&gt;....)<br>USING &lt;option&gt;<br>-更新<br>UPDATE &lt;tablename&gt;<br>SET &lt;column name&gt; = &lt;new value&gt;<br>&lt;column name&gt; = &lt;value&gt;....<br>WHERE &lt;condition&gt;<br>-读取<br>SELECT FROM  [WHERE…]<br>-删除<br>DELETE FROM &lt;identifier&gt; WHERE &lt;condition&gt;;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="字句"><a href="#字句" class="headerlink" title="字句"></a>字句</h2><p>同MySQL<del>（SELECT、WHERE、ORDER BY</del>）</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs CQL">List用于以下的情况：将保持元素的顺序，并且值将被多次存储。<br>CREATE TABLE data(name text PRIMARY KEY, email list&lt;text&gt;); -创建表<br>INSERT INTO data(name, email) VALUES (&#x27;ramu&#x27;,[&#x27;abc@gmail.com&#x27;,&#x27;cba@yahoo.com&#x27;]) -插入<br>-更新<br>UPDATE data<br>... SET email = email +[&#x27;xyz@tutorialspoint.com&#x27;]<br>... where name = &#x27;ramu&#x27;;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>用于存储一组元素的数据类型。集合的元素将按排序顺序返回。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs CQL">cqlsh:tutorialspoint&gt; CREATE TABLE data2 (name text PRIMARY KEY, phone set&lt;varint&gt;); -创建<br>cqlsh:tutorialspoint&gt; INSERT INTO data2(name, phone)VALUES (&#x27;rahman&#x27;,    &#123;9848022338,9848022339&#125;); -插入<br>-更新<br>cqlsh:tutorialspoint&gt; UPDATE data2<br>   ... SET phone = phone + &#123;9848022330&#125;<br>   ... where name = &#x27;rahman&#x27;;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>地图是用于存储元素的键值对的数据类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cql">cqlsh:tutorialspoint&gt; CREATE TABLE data3 (name text PRIMARY KEY, address map&lt;timestamp, text&gt;); -创建<br>cqlsh:tutorialspoint&gt; INSERT INTO data3 (name, address) VALUES (&#x27;robin&#x27;, &#123;&#x27;home&#x27; : &#x27;hyderabad&#x27; , &#x27;office&#x27; : &#x27;Delhi&#x27; &#125; ); -插入<br>-更新<br>cqlsh:tutorialspoint&gt; UPDATE data3<br>   ... SET address = address+&#123;&#x27;office&#x27;:&#x27;mumbai&#x27;&#125;<br>   ... WHERE name = &#x27;robin&#x27;;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/" class="category-chain-item">大数据开发&amp;架构</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/3-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" class="category-chain-item">3.数据存储</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/3-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/%E5%88%97%E5%AD%98%E5%82%A8/" class="category-chain-item">列存储</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Cassandra</div>
+      <div>http://zuoyerumeng.site/2023/07/09/大数据开发与架构/数据存储/Cassandra/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/HBase/" title="HBase">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HBase</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Clickhouse/" title="Clickhouse">
+                        <span class="hidden-mobile">Clickhouse</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

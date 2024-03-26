@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="（注释符号未必是&#x2F;&#x2F;，并没有没查到！） 应用方向&amp;总体介绍*性能极高的KV非关系型数据库（field（即key）-val对） *各数据类型都能最多存储40亿数据 *不区分大小写 连接&amp;事务连接   序号 命令及描述    1 AUTH password  验证密码是否正确   2 ECHO message  打印字符串   3 PING  查看服务是否运行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Redis/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="（注释符号未必是&#x2F;&#x2F;，并没有没查到！） 应用方向&amp;总体介绍*性能极高的KV非关系型数据库（field（即key）-val对） *各数据类型都能最多存储40亿数据 *不区分大小写 连接&amp;事务连接   序号 命令及描述    1 AUTH password  验证密码是否正确   2 ECHO message  打印字符串   3 PING  查看服务是否运行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Redis/1688840038662.jpg">
+<meta property="article:published_time" content="2023-07-08T18:09:06.000Z">
+<meta property="article:modified_time" content="2023-08-17T02:48:14.913Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zuoyerumeng.site/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Redis/1688840038662.jpg">
+  
+  
+  
+  <title>Redis - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 02:09" pubdate>
+          2023年7月9日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Redis</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>（注释符号未必是&#x2F;&#x2F;，并没有没查到！）</p>
+<h1 id="应用方向-amp-总体介绍"><a href="#应用方向-amp-总体介绍" class="headerlink" title="应用方向&amp;总体介绍"></a>应用方向&amp;总体介绍</h1><p>*性能极高的KV非关系型数据库（field（即key）-val对）</p>
+<p>*各数据类型都能最多存储40亿数据</p>
+<p>*不区分大小写</p>
+<h1 id="连接-amp-事务"><a href="#连接-amp-事务" class="headerlink" title="连接&amp;事务"></a>连接&amp;事务</h1><h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><table>
+<thead>
+<tr>
+<th><strong>序号</strong></th>
+<th><strong>命令及描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/connection-auth.html">AUTH password</a>  验证密码是否正确</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/connection-echo.html">ECHO message</a>  打印字符串</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/connection-ping.html">PING</a>  查看服务是否运行</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/connection-quit.html">QUIT</a>  关闭当前连接</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/connection-select.html">SELECT index</a>  切换到指定的数据库</td>
+</tr>
+</tbody></table>
+<p>*服务器命令大全：<a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-server.html">Redis 服务器 | 菜鸟教程 (runoob.com)</a></p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>一个事务从开始到执行会经历以下三个阶段：</p>
+<ol>
+<li><p>开始事务。</p>
+</li>
+<li><p>命令入队。</p>
+</li>
+<li><p>执行事务。</p>
+</li>
+</ol>
+<p>Redis 事务可以一次执行多个命令， 并且带有以下三个重要的保证：</p>
+<ul>
+<li>批量操作在发送 EXEC 命令前被放入队列缓存。</li>
+<li>收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，不会回滚且其余的命令依然被执行。</li>
+<li>在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c">MULTI <span class="hljs-comment">//开始一个事务</span><br>… <span class="hljs-comment">//多个命令</span><br>EXEC <span class="hljs-comment">//触发事务（一并执行事务中的所有命令）</span><br>DISCARD <span class="hljs-comment">//取消事务，放弃执行事务块内的所有命令。</span><br>WATCH ds1[,…dsN] <span class="hljs-comment">//监视一/多个key。如果在事务执行之前这个/些key被其他命令所改动，那么事务将被打断。</span><br>UNWATCH <span class="hljs-comment">//取消WATCH命令对所有key的监视</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="数据类型与操作命令"><a href="#数据类型与操作命令" class="headerlink" title="数据类型与操作命令"></a>数据类型与操作命令</h1><p>*以String为最基本类型，其他类型中存放的都是String！</p>
+<p>*下标从0开始</p>
+<ol>
+<li>启动 redis 服务器，打开终端并输入命令 <strong>redis-cli</strong>，该命令会连接本地的 redis 服务</li>
+</ol>
+<p>PS:redis-cli -h host -p port -a password &#x2F;&#x2F;在远程 redis 服务上执行命令</p>
+<ol start="2">
+<li>COMMAND KEY_NAME &#x2F;&#x2F;开始管理值（不止是键，其他都行！）</li>
+</ol>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">EXISTS t_name <span class="hljs-comment">//是否存在</span><br>GET t_name <span class="hljs-comment">//获取</span><br>SET t_name elem <span class="hljs-comment">//创建、插入、修改</span><br>DEL t_name <span class="hljs-comment">//需先删除再把其他值赋给此变量名！</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Hash（KV）"><a href="#Hash（KV）" class="headerlink" title="Hash（KV）"></a>Hash（KV）</h2><p>*键又称字段。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//多个键值对，即field_name1[…field_nameN]，中间空格隔开即可，无需逗号！</span><br>HLEN h <span class="hljs-comment">//获取键值对数量</span><br>HEXISTS h field_name <span class="hljs-comment">//是否存在</span><br>H[M]GET[ALL] h field_name1[,…N] <span class="hljs-comment">//根据键获取值（HM获取多个，HGETALL获取所有）</span><br>HKEYS/VALS h <span class="hljs-comment">//获取所有哈希表中的字段</span><br>H[M]SET field_name1 value_name1[,…N] <span class="hljs-comment">//创建、插入、修改键值对（HMSET创建多个）</span><br>HDEL key field_name1[,…N] <span class="hljs-comment">//删除，可同时删多个！</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">llen l <span class="hljs-comment">//获取长度</span><br>lindex l index <span class="hljs-comment">//通过索引获取值</span><br>lrange l left right<span class="hljs-comment">//返回指定区间的元素</span><br> bl/rpop l <span class="hljs-comment">//弹出并获取列表的第一个/最后一个元素</span><br>lset l index value <span class="hljs-comment">//创建、插入、修改</span><br>l/rpush l ele1[,…eleN] <span class="hljs-comment">//插入头/尾部</span><br>lrem l count value <span class="hljs-comment">//删除，count表示删除的数量，为正从左往右，为负从右往左，为0删除所有</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Set（无序集合）"><a href="#Set（无序集合）" class="headerlink" title="Set（无序集合）"></a>Set（无序集合）</h2><p>通过哈希表实现，复杂度都为O(1)!</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">scard s <span class="hljs-comment">//获取长度</span><br>sismember s elem <span class="hljs-comment">//是否存在</span><br>smembers s <span class="hljs-comment">//获取所有元素</span><br>sadd s elem1[,…elemN] <span class="hljs-comment">//创建、插入、修改（若已存在不会报错）</span><br>srem s elem1[,…elemN] <span class="hljs-comment">//删除</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="zset（有序集合）"><a href="#zset（有序集合）" class="headerlink" title="zset（有序集合）"></a>zset（有序集合）</h2><p>*每个元素都会关联一个double类型的分数，通过分数来为集合中的成员进行从小到大的排序。</p>
+<p>*成员是唯一的,但分数(score)却可以重复。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">zcard zs <span class="hljs-comment">//获取长度</span><br>zcount zs min max <span class="hljs-comment">//计算在有序集合中指定区间分数的成员数</span><br>zscore zs elem <span class="hljs-comment">//返回有序集中成员的分数值</span><br>zrank zs elem <span class="hljs-comment">//返回有序集合中指定成员的索引</span><br>z[rev]range zs left right [withscores] <span class="hljs-comment">//通过索引返回有序集合指定区间内的成员（有rev则分数递减排序）</span><br>zrangebylex zs left right [limit] <span class="hljs-comment">//通过字典返回有序集合指定区间内的成员</span><br>z[rev]rangebyscore zs left right [withscores] [limit] <span class="hljs-comment">//通过分数返回有序集合指定区间内的成员（有rev则分数递减排序）</span><br>zadd zs score1 elem1[,… <span class="hljs-comment">//创建、插入、修改（若已存在不会报错）</span><br>zrem zs elem1[,…elemN] <span class="hljs-comment">//删除</span><br>zremrangebylex/rank/score zs left right <span class="hljs-comment">//删除指定字典/排名/分数区间内的成员</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="发布-订阅（类似于Kafka）"><a href="#发布-订阅（类似于Kafka）" class="headerlink" title="发布-订阅（类似于Kafka）"></a>发布-订阅（类似于Kafka）</h1><p><img src="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Redis/1688840038662.jpg" srcset="/img/loading.gif" lazyload alt="1688840038662"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">[UN]SUBSCRIBE channel_name1[,…N] <span class="hljs-comment">//客户端订阅频道（PUN则为退订）</span><br>[PUN]PSUBSCRIBE pattern1[,…N] <span class="hljs-comment">//客户端订阅负荷给定模式的频道</span><br>PUBSUB subcommand [argument1[…N]]]…] <span class="hljs-comment">//客户端查看订阅与发布系统状态</span><br>PUBLISH channel_name message <span class="hljs-comment">//频道端发布消息，此时在客户端可以看到频道发布的消息</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">SCRIPT EXISTS script1 [,…scriptN] <span class="hljs-comment">//查看指定的脚本是否已经被保存在缓存当中</span><br>SCRIPT LOAD script <span class="hljs-comment">//将脚本script添加到脚本缓存中，但并不立即执行这个脚本</span><br>EVAL[SHA] script numkeys key1[,…keyN] arg [,…argN] <span class="hljs-comment">//执行Lua脚本</span><br>SCRIPT KILL <span class="hljs-comment">//杀死当前正在运行的 Lua 脚本</span><br>SCIRPT FLUSH<span class="hljs-comment">//从脚本缓存中移除所有脚本</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="数据备份-amp-恢复"><a href="#数据备份-amp-恢复" class="headerlink" title="数据备份&amp;恢复"></a>数据备份&amp;恢复</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">[BG]SAVE <span class="hljs-comment">//备份</span><br><span class="hljs-comment">//如果需要恢复数据，只需将备份文件 (dump.rdb) 移动到 redis 安装目录并启动服务即可</span><br>CONFIG GET dir <span class="hljs-comment">//获取redis目录</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="配置、修改密码"><a href="#配置、修改密码" class="headerlink" title="配置、修改密码"></a>配置、修改密码</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">CONFIG get requirepass <span class="hljs-comment">//查看是否设置了密码验证（为空说明没设置）</span><br>CONFIG <span class="hljs-built_in">set</span> requirepass your_pwd <span class="hljs-comment">//设置密码验证（即修改requirepass参数）</span><br>AUTH your_pwd <span class="hljs-comment">//密码验证</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/" class="category-chain-item">大数据开发&amp;架构</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/3-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" class="category-chain-item">3.数据存储</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/3-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/%E9%94%AE%E5%80%BC%E5%AD%98%E5%82%A8/" class="category-chain-item">键值存储</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis</div>
+      <div>http://zuoyerumeng.site/2023/07/09/大数据开发与架构/数据存储/Redis/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/Clickhouse/" title="Clickhouse">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Clickhouse</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B8%8E%E6%9E%B6%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/MongoDB/" title="MongoDB">
+                        <span class="hidden-mobile">MongoDB</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

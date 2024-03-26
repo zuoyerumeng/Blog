@@ -1,0 +1,850 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="饼图核心语句1234pie(x, labels &#x3D; names(x), edges &#x3D; 200, radius &#x3D; 0.8,    clockwise &#x3D; FALSE, init.angle &#x3D; if(clockwise) 90 else 0,    density &#x3D; NULL, angle &#x3D; 45, col &#x3D; NULL, border &#x3D; NULL,    lty &#x3D; NULL, main">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/R%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="饼图核心语句1234pie(x, labels &#x3D; names(x), edges &#x3D; 200, radius &#x3D; 0.8,    clockwise &#x3D; FALSE, init.angle &#x3D; if(clockwise) 90 else 0,    density &#x3D; NULL, angle &#x3D; 45, col &#x3D; NULL, border &#x3D; NULL,    lty &#x3D; NULL, main">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-09T17:22:51.000Z">
+<meta property="article:modified_time" content="2023-08-17T03:01:32.462Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="可视化">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>R语言 - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="R语言"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-10 01:22" pubdate>
+          2023年7月10日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">R语言</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h1><h2 id="核心语句"><a href="#核心语句" class="headerlink" title="核心语句"></a>核心语句</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs R">pie<span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">,</span> labels <span class="hljs-operator">=</span> <span class="hljs-built_in">names</span><span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> edges <span class="hljs-operator">=</span> <span class="hljs-number">200</span><span class="hljs-punctuation">,</span> radius <span class="hljs-operator">=</span> <span class="hljs-number">0.8</span><span class="hljs-punctuation">,</span><br>    clockwise <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span> init.angle <span class="hljs-operator">=</span> <span class="hljs-keyword">if</span><span class="hljs-punctuation">(</span>clockwise<span class="hljs-punctuation">)</span> <span class="hljs-number">90</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>    density <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> angle <span class="hljs-operator">=</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span> col <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> border <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span><br>    lty <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> main <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> …<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>x: 数值向量，表示每个扇形的面积。</p>
+</li>
+<li><p>labels:     字符型向量，表示各扇形面积标签。</p>
+</li>
+<li><p>edges:     这个参数用处不大，指的是多边形的边数（圆的轮廓类似很多边的多边形）。</p>
+</li>
+<li><p>radius:     饼图的半径。</p>
+</li>
+<li><p>main:     饼图的标题。</p>
+</li>
+<li><p>clockwise:     是一个逻辑值,用来指示饼图各个切片是否按顺时针做出分割。</p>
+</li>
+<li><p>angle:     设置底纹的斜率。</p>
+</li>
+<li><p>density:     底纹的密度。默认值为 NULL。</p>
+</li>
+<li><p>col: 是表示每个扇形的颜色，相当于调色板。</p>
+</li>
+</ul>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>3D绘图：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs R">install.packages<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;plotrix&quot;</span><span class="hljs-punctuation">,</span> repos <span class="hljs-operator">=</span> <span class="hljs-string">&quot; https://mirrors.ustc.edu.cn/CRAN/&quot;</span><span class="hljs-punctuation">)</span><br>pie3D<span class="hljs-punctuation">(</span>info<span class="hljs-punctuation">,</span>labels <span class="hljs-operator">=</span> <span class="hljs-built_in">names</span><span class="hljs-punctuation">,</span>explode <span class="hljs-operator">=</span> <span class="hljs-number">0.1</span><span class="hljs-punctuation">,</span> main <span class="hljs-operator">=</span> <span class="hljs-string">&quot;3D 图&quot;</span><span class="hljs-punctuation">,</span>family <span class="hljs-operator">=</span> <span class="hljs-string">&quot;STHeitiTC-Light&quot;</span><span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="条形图"><a href="#条形图" class="headerlink" title="条形图"></a>条形图</h1><p>*核心语句</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">barplot<span class="hljs-punctuation">(</span>H<span class="hljs-punctuation">,</span>xlab<span class="hljs-punctuation">,</span>ylab<span class="hljs-punctuation">,</span>main<span class="hljs-punctuation">,</span> names.arg<span class="hljs-punctuation">,</span>col<span class="hljs-punctuation">,</span>beside<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>H</strong> 向量或矩阵，包含图表用的数字值，每个数值表示矩形条的高度。</li>
+<li><strong>xlab</strong> x 轴标签。</li>
+<li><strong>ylab</strong> y 轴标签。</li>
+<li><strong>main</strong> 图表标题。</li>
+<li><strong>names.arg</strong> 每个矩形条的名称。</li>
+<li><strong>col</strong> 每个矩形条的颜色。</li>
+<li><strong>beside&#x3D;FALSE</strong> 时，条形图的高度是矩阵的数值，矩形条是水平堆叠的。</li>
+<li><strong>beside&#x3D;TRUE</strong> 时，条形图的高度是矩阵的数值，矩形条是并列的。</li>
+</ul>
+<h1 id="函数曲线"><a href="#函数曲线" class="headerlink" title="函数曲线"></a>函数曲线</h1><p>核心语句</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs R">curve<span class="hljs-punctuation">(</span>expr<span class="hljs-punctuation">,</span> from <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> to <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> n <span class="hljs-operator">=</span> <span class="hljs-number">101</span><span class="hljs-punctuation">,</span> add <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span><br>      type <span class="hljs-operator">=</span> <span class="hljs-string">&quot;l&quot;</span><span class="hljs-punctuation">,</span> xname <span class="hljs-operator">=</span> <span class="hljs-string">&quot;x&quot;</span><span class="hljs-punctuation">,</span> xlab <span class="hljs-operator">=</span> xname<span class="hljs-punctuation">,</span> ylab <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-built_in">log</span> <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> xlim <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> …<span class="hljs-punctuation">)</span><br><br><span class="hljs-comment"># S3 函数的方法</span><br>plot<span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> to <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> from <span class="hljs-operator">=</span> y<span class="hljs-punctuation">,</span> xlim <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> ylab <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> …<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<p>• expr：函数表达式<br>• from 和 to：绘图的起止范围<br>• n：一个整数值，表示 x 取值的数量<br>• add：是一个逻辑值，当为 TRUE 时，表示将绘图添加到已存在的绘图中。<br>• type：绘图的类型，p 为点、l 为直线， o 同时绘制点和线，且线穿过点。<br>• xname：用于 x 轴变量的名称。<br>• xlim 和 ylim 表示x轴和y轴的范围。<br>• xlab，ylab：x 轴和 y 轴的标签名称。</p>
+<h1 id="散点图"><a href="#散点图" class="headerlink" title="散点图"></a>散点图</h1><p>核心语句</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">plot<span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">,</span> y<span class="hljs-punctuation">,</span> type<span class="hljs-operator">=</span><span class="hljs-string">&quot;p&quot;</span><span class="hljs-punctuation">,</span> main<span class="hljs-punctuation">,</span> xlab<span class="hljs-punctuation">,</span> ylab<span class="hljs-punctuation">,</span> xlim<span class="hljs-punctuation">,</span> ylim<span class="hljs-punctuation">,</span> axes<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<p>• x 横坐标 x 轴的数据集合<br>• y 纵坐标 y 轴的数据集合<br>• type：绘图的类型，p 为点、l 为直线， o 同时绘制点和线，且线穿过点。<br>• main 图表标题。<br>• xlab、ylab x 轴和 y 轴的标签名称。<br>• xlim、ylim x 轴和 y 轴的范围（用二维向量表示即可）<br>• axes 布尔值，是否绘制两个 x 轴。</p>
+<p>*type 参数可选择值：<br>• p：点图<br>• l：线图<br>• b：同时绘制点和线<br>• c：仅绘制参数 b 所示的线<br>• o：同时绘制点和线，且线穿过点<br>• h：绘制出点到横坐标轴的垂直线<br>• s：阶梯图，先横后纵<br>• S：阶梯图，先纵后竖<br>n： 空图</p>
+<h1 id="箱线图"><a href="#箱线图" class="headerlink" title="箱线图"></a>箱线图</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs R">boxplot<span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">,</span> ...<span class="hljs-punctuation">,</span> <span class="hljs-built_in">range</span> <span class="hljs-operator">=</span> <span class="hljs-number">1.5</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> varwidth <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span><br>        notch <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span> outline <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">names</span><span class="hljs-punctuation">,</span> plot <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span><br>        border <span class="hljs-operator">=</span> par<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;fg&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> col <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">log</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><br>        pars <span class="hljs-operator">=</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>boxwex <span class="hljs-operator">=</span> <span class="hljs-number">0.8</span><span class="hljs-punctuation">,</span> staplewex <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> outwex <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span><br>         ann <span class="hljs-operator">=</span> <span class="hljs-operator">!</span>add<span class="hljs-punctuation">,</span> horizontal <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span> add <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span> at <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<p>x 参数为一个数值向量或者列表，若为列表则对列表中每一个子对象依次作出箱线图。</p>
+<p>formula 为一个公式，比如 y ~ x。</p>
+<p>data 参数为一个数据框或者列表。</p>
+<p>na.action 参数是对NA值的操作，默认为忽略。</p>
+<p>ann 参数为逻辑值，是否绘制坐标轴。</p>
+<p>range 是一个延伸倍数，决定了箱线图的须延伸到什么位置。</p>
+<p>width 设置箱子的宽度。</p>
+<p>varwidth 为逻辑值，若为 TRUE，那么箱子的宽度与样本量的平方根成比例。</p>
+<p>notch 决定了是否在箱子上画凹槽，可以用于比较两组数据的中位数是否有差异。</p>
+<p>horizontal 是否水平放置箱线图。</p>
+<p>add 参数设置是否将箱线图添加到现有图形上。</p>
+<p>at 参数，当add为TRUE时，设置箱线图位置。</p>
+<h1 id="克利夫兰图"><a href="#克利夫兰图" class="headerlink" title="克利夫兰图"></a>克利夫兰图</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs R">ggdotchart<span class="hljs-punctuation">(</span>dfm<span class="hljs-punctuation">,</span> x <span class="hljs-operator">=</span> <span class="hljs-string">&quot;automobiles&quot;</span><span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> <span class="hljs-string">&quot;mpg&quot;</span><span class="hljs-punctuation">,</span><br>           color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;cyl&quot;</span><span class="hljs-punctuation">,</span>                                <span class="hljs-comment"># 按组别配色</span><br>           palette <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;#FF0000&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;#00868B&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;#E066FF&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-comment"># 配置调色板</span><br>           sorting <span class="hljs-operator">=</span> <span class="hljs-string">&quot;descending&quot;</span><span class="hljs-punctuation">,</span>                       <span class="hljs-comment"># 降序排列</span><br>           dot.size <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>                                 <span class="hljs-comment"># 点的大小</span><br>           x.text.col <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span>                            <span class="hljs-comment"># x轴上的文字按组别配色</span><br>           ggtheme <span class="hljs-operator">=</span> theme_pubr<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>                        <span class="hljs-comment"># 设置主题</span><br>           <span class="hljs-punctuation">)</span><span class="hljs-operator">+</span><br>  theme_cleveland<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>                                      <span class="hljs-comment"># 加入虚线网格</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="星图（雷达图）"><a href="#星图（雷达图）" class="headerlink" title="星图（雷达图）"></a>星图（雷达图）</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">stars<span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">,</span>full <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span>draw.segments <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span>key.loc<span class="hljs-operator">=</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>xcoord<span class="hljs-punctuation">,</span>ycoord<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>…<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<p>x为数值矩阵或数据框</p>
+<p>full为图形形状：full &#x3D; TRUE表示圆形，full &#x3D; FALSE表示半圆</p>
+<p>draw.segments控制星相颜色，draw.segments&#x3D;T彩色,draw.segments&#x3D;F黑白</p>
+<p>key.loc是用来调整右下角图例的位置的函数</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/" class="category-chain-item">数据分析&amp;挖掘</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/4-%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="category-chain-item">4.数据可视化</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/" class="print-no-link">#可视化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>R语言</div>
+      <div>http://zuoyerumeng.site/2023/07/10/数据分析与挖掘/数据可视化/R语言/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月10日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/MATLAB/" title="MATLAB">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MATLAB</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/Matplotlib/" title="Matplotlib">
+                        <span class="hidden-mobile">Matplotlib</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="*下标从1开始 *NA存在但是值缺失（占位符），NULL是不存在 向量构建123a&#x3D;c(m,n)seq(l,r,d) #生成以l为首，r为尾，间隔为d的向量rep(a,n) #产生重复出现的数字序列    操作访问12a[**c**(1, 3, 5)] # 取出第 1, 3, 5 项 a[**c**(-1, -5)] # 去掉第 1 和第 5 项  排序123sort(向量名)rev(向量名)or">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/R%E8%AF%AD%E8%A8%80/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="*下标从1开始 *NA存在但是值缺失（占位符），NULL是不存在 向量构建123a&#x3D;c(m,n)seq(l,r,d) #生成以l为首，r为尾，间隔为d的向量rep(a,n) #产生重复出现的数字序列    操作访问12a[**c**(1, 3, 5)] # 取出第 1, 3, 5 项 a[**c**(-1, -5)] # 去掉第 1 和第 5 项  排序123sort(向量名)rev(向量名)or">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-09T13:47:02.000Z">
+<meta property="article:modified_time" content="2023-08-17T02:57:41.595Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="R语言">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>数据类型 - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据类型"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 21:47" pubdate>
+          2023年7月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据类型</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>*下标从1开始</p>
+<p>*NA存在但是值缺失（占位符），NULL是不存在</p>
+<h1 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h1><h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs R">a<span class="hljs-operator">=</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>m<span class="hljs-punctuation">,</span>n<span class="hljs-punctuation">)</span><br>seq<span class="hljs-punctuation">(</span>l<span class="hljs-punctuation">,</span>r<span class="hljs-punctuation">,</span>d<span class="hljs-punctuation">)</span> <span class="hljs-comment">#生成以l为首，r为尾，间隔为d的向量</span><br><span class="hljs-built_in">rep</span><span class="hljs-punctuation">(</span>a<span class="hljs-punctuation">,</span>n<span class="hljs-punctuation">)</span> <span class="hljs-comment">#产生重复出现的数字序列</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs R">a<span class="hljs-punctuation">[</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-built_in">c</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span> <span class="hljs-number">5</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span> <span class="hljs-comment"># 取出第 1, 3, 5 项</span><br> a<span class="hljs-punctuation">[</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-built_in">c</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-punctuation">(</span><span class="hljs-operator">-</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-operator">-</span><span class="hljs-number">5</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span> <span class="hljs-comment"># 去掉第 1 和第 5 项</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs R">sort<span class="hljs-punctuation">(</span>向量名<span class="hljs-punctuation">)</span><br>rev<span class="hljs-punctuation">(</span>向量名<span class="hljs-punctuation">)</span><br>order<span class="hljs-punctuation">(</span>向量名<span class="hljs-punctuation">)</span> <span class="hljs-comment">#返回的是一个向量排序之后的下标向量</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs R">which<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#筛选我们需要的数据的下标</span><br><span class="hljs-comment">#例：</span><br>a <span class="hljs-operator">=</span> <span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-built_in">c</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-punctuation">(</span><span class="hljs-number">11</span><span class="hljs-punctuation">,</span> <span class="hljs-number">12</span><span class="hljs-punctuation">,</span> <span class="hljs-number">13</span><span class="hljs-punctuation">)</span><br>b <span class="hljs-operator">=</span> a <span class="hljs-operator">&gt;</span> <span class="hljs-number">12</span><br>which<span class="hljs-punctuation">(</span>b<span class="hljs-punctuation">)</span><br><span class="hljs-comment"># 1 3</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs R">vector<span class="hljs-operator">=</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span> <span class="hljs-number">6</span><span class="hljs-punctuation">)</span><br>matrix<span class="hljs-punctuation">(</span>vector<span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#按列填充</span><br>matrix<span class="hljs-punctuation">(</span>vector<span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span>，byrow<span class="hljs-operator">=</span><span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#按行填充</span><br>colnames<span class="hljs-punctuation">(</span>m1<span class="hljs-punctuation">)</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;x&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;y&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;z&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#设定行列名称</span><br>rownames<span class="hljs-punctuation">(</span>m1<span class="hljs-punctuation">)</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;a&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;b&quot;</span><span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h2><h3 id="访问-1"><a href="#访问-1" class="headerlink" title="访问"></a>访问</h3><p>m[x,y]</p>
+<h3 id="乘除"><a href="#乘除" class="headerlink" title="乘除"></a>乘除</h3><p>*、&#x2F;</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs R">A<span class="hljs-operator">=</span>matrix<span class="hljs-punctuation">(</span>…<span class="hljs-punctuation">)</span><br>apply<span class="hljs-punctuation">(</span>A<span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 第二个参数为 1 按行操作，2则按列操作，用 sum() 函数</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">lst<span class="hljs-operator">&lt;-</span><span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>…<span class="hljs-punctuation">)</span>  <span class="hljs-built_in">names</span><span class="hljs-punctuation">(</span>列表名<span class="hljs-punctuation">)</span><span class="hljs-operator">&lt;-</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>…<span class="hljs-punctuation">,</span>…<span class="hljs-punctuation">)</span>  <span class="hljs-comment"># 命名 </span><br></code></pre></td></tr></table></figure>
+
+<h2 id="操作-2"><a href="#操作-2" class="headerlink" title="操作"></a>操作</h2><h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">list_data<span class="hljs-punctuation">[</span>index<span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> <span class="hljs-string">&quot;新元素&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">list_data<span class="hljs-punctuation">[</span>index<span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> <span class="hljs-literal">NULL</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>略~</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs R">merged.list <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>list1<span class="hljs-punctuation">,</span>list2<span class="hljs-punctuation">)</span> <span class="hljs-comment">#合并列表</span><br>v1 <span class="hljs-operator">&lt;-</span> unlist<span class="hljs-punctuation">(</span>list1<span class="hljs-punctuation">)</span> <span class="hljs-comment"># 列表转化为向量</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">array<span class="hljs-punctuation">(</span>data <span class="hljs-operator">=</span> <span class="hljs-literal">NA</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">dim</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">length</span><span class="hljs-punctuation">(</span>data<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">dimnames</span> <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dim 数组的维度，默认是一维数组。（一般是三个参数——向量长度（默认为列向量）、矩阵的另一个维度（即向量的个数）、矩阵的个数）</p>
+</li>
+<li><p>dimnames 维度的名称，必须是个列表，默认情况下是不设置名称的。</p>
+</li>
+</ul>
+<p>例：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs R">vector1 <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">5</span><span class="hljs-punctuation">,</span><span class="hljs-number">9</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span><span class="hljs-punctuation">)</span><br>vector2 <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">10</span><span class="hljs-punctuation">,</span><span class="hljs-number">11</span><span class="hljs-punctuation">,</span><span class="hljs-number">12</span><span class="hljs-punctuation">,</span><span class="hljs-number">13</span><span class="hljs-punctuation">,</span><span class="hljs-number">14</span><span class="hljs-punctuation">,</span><span class="hljs-number">15</span><span class="hljs-punctuation">)</span><br>row.names <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;ROW1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;ROW2&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;ROW3&quot;</span><span class="hljs-punctuation">)</span><br>result <span class="hljs-operator">&lt;-</span> array<span class="hljs-punctuation">(</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>vector1<span class="hljs-punctuation">,</span>vector2<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span><span class="hljs-built_in">dim</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span>，<span class="hljs-built_in">dimnames</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>row.names<span class="hljs-punctuation">,</span>column.names<span class="hljs-punctuation">,</span>matrix.names<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="操作-3"><a href="#操作-3" class="headerlink" title="操作"></a>操作</h2><h3 id="访问-2"><a href="#访问-2" class="headerlink" title="访问"></a>访问</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">print<span class="hljs-punctuation">(</span>result<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 显示数组第一个矩阵中第一行第二列的元素  </span><br></code></pre></td></tr></table></figure>
+
+<h1 id="数据框"><a href="#数据框" class="headerlink" title="数据框"></a>数据框</h1><h2 id="创建-3"><a href="#创建-3" class="headerlink" title="创建"></a>创建</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs R">data.frame<span class="hljs-punctuation">(</span>…<span class="hljs-punctuation">,</span> row.names <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> check.rows <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span><br>           check.names <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span> fix.empty.names <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span><br>           stringsAsFactors <span class="hljs-operator">=</span> default.stringsAsFactors<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><br><span class="hljs-comment"># 例：</span><br>table <span class="hljs-operator">=</span> data.frame<span class="hljs-punctuation">(</span><br>    姓名 <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;张三&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;李四&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span><br>    工号 <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;001&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;002&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span><br>    月薪 <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1000</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2000</span><span class="hljs-punctuation">)</span><br><span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>…</strong>: 列向量，可以是任何类型（字符型、数值型、逻辑型），一般以 tag &#x3D;     value 的形式表示，也可以是 value。</li>
+<li><strong>row.names</strong>: 行名，默认为 NULL，可以设置为单个数字、字符串或字符串和数字的向量。</li>
+<li><strong>check.rows</strong>: 检测行的名称和长度是否一致。</li>
+<li><strong>check.names</strong>: 检测数据框的变量名是否合法。</li>
+<li><strong>fix.empty.names</strong>: 设置未命名的参数是否自动设置名字。</li>
+<li><strong>stringsAsFactors</strong>: 布尔值，字符是否转换为因子，factory-fresh 的默认值是     TRUE，可以通过设置选项（stringsAsFactors&#x3D;FALSE）来修改。</li>
+</ul>
+<h2 id="操作-4"><a href="#操作-4" class="headerlink" title="操作"></a>操作</h2><h3 id="访问-3"><a href="#访问-3" class="headerlink" title="访问"></a>访问</h3><ul>
+<li>下标访问</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">result <span class="hljs-operator">&lt;-</span> table<span class="hljs-punctuation">[</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span> <span class="hljs-comment"># 读取第 2 、3 行的第 1 、2 列数据： </span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>列名访问</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">…<span class="hljs-operator">&lt;-</span> data.frame<span class="hljs-punctuation">(</span>表名<span class="hljs-operator">$</span>列名，表名<span class="hljs-operator">$</span>列名…<span class="hljs-punctuation">)</span>   <br></code></pre></td></tr></table></figure>
+
+<h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p>将向量组合成数据框 </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">… <span class="hljs-operator">&lt;-</span> cbind<span class="hljs-punctuation">(</span>v1<span class="hljs-punctuation">,</span>v2<span class="hljs-punctuation">,</span>v3<span class="hljs-punctuation">)</span>  <br></code></pre></td></tr></table></figure>
+
+<p>合并数据框（所有列名需一致）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">result <span class="hljs-operator">&lt;-</span> rbind<span class="hljs-punctuation">(</span>table1<span class="hljs-punctuation">,</span>table2<span class="hljs-punctuation">)</span>  <br></code></pre></td></tr></table></figure>
+
+<p>*merge函数亦可：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs R">merge<span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">,</span> y<span class="hljs-punctuation">,</span> by <span class="hljs-operator">=</span> intersect<span class="hljs-punctuation">(</span><span class="hljs-built_in">names</span><span class="hljs-punctuation">(</span>x<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">names</span><span class="hljs-punctuation">(</span>y<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span><br>    by.x <span class="hljs-operator">=</span> by<span class="hljs-punctuation">,</span> by.y <span class="hljs-operator">=</span> by<span class="hljs-punctuation">,</span> <span class="hljs-built_in">all</span> <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">,</span> all.x <span class="hljs-operator">=</span> <span class="hljs-built_in">all</span><span class="hljs-punctuation">,</span> all.y <span class="hljs-operator">=</span> <span class="hljs-built_in">all</span><span class="hljs-punctuation">,</span><br>    sort <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span> suffixes <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;.x&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;.y&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> no.dups <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span><br>    incomparables <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">,</span> …<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>x, y： 数据框</li>
+<li>by, by.x,     by.y：指定两个数据框中匹配列名称，默认情况下使用两个数据框中相同列名称。</li>
+<li>all：逻辑值; all &#x3D; L 是     all.x &#x3D; L 和 all.y &#x3D; L 的简写，L 可以是 TRUE 或 FALSE。</li>
+<li>all.x：逻辑值，默认为     FALSE。如果为 TRUE, 显示 x 中匹配的行，即便 y 中没有对应匹配的行，y 中没有匹配的行用 NA 来表示。</li>
+<li>all.y：逻辑值，默认为     FALSE。如果为 TRUE, 显示 y 中匹配的行，即便 x 中没有对应匹配的行，x 中没有匹配的行用 NA 来表示。</li>
+<li>sort：逻辑值，是否对列进行排序。</li>
+</ul>
+<p>PS: merge() 函数和 SQL 的 JOIN 功能很相似</p>
+<h3 id="提取概要"><a href="#提取概要" class="headerlink" title="提取概要"></a>提取概要</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs R">summary<span class="hljs-punctuation">(</span>table<span class="hljs-punctuation">)</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><p>‘…’&#x2F;“…”</p>
+<h2 id="操作-5"><a href="#操作-5" class="headerlink" title="操作"></a>操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs R">nchar<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;string&quot;</span><span class="hljs-punctuation">,</span> type<span class="hljs-operator">=</span><span class="hljs-string">&quot;char&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 总计字符数量</span><br>substr<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;123456789&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">5</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 截取字符串，从 1 到 5（只有两个参数则第二个为尾部）</span><br><span class="hljs-built_in">as.numeric</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;12&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 将字符串转换为数字</span><br><span class="hljs-built_in">as.character</span><span class="hljs-punctuation">(</span><span class="hljs-number">12.34</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 将数字转换为字符串</span><br>strsplit<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;2019;10;1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;;&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 分隔符拆分字符串</span><br>gsub<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;-&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;2019/10/1&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment"># 替换字符串</span><br>paste<span class="hljs-punctuation">(</span>...<span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot; &quot;</span><span class="hljs-punctuation">,</span> collapse <span class="hljs-operator">=</span> <span class="hljs-literal">NULL</span><span class="hljs-punctuation">)</span><br><span class="hljs-comment">#sep ： 分隔符，默认为空格</span><br><span class="hljs-comment">#collapse ： 两个或者更多字符串对象根据元素对应关系拼接到一起，在字符串进行连接后，再使用 collapse 指定对连接符进行连接（？）</span><br>toupper<span class="hljs-operator">/</span>tolower<span class="hljs-punctuation">(</span>…<span class="hljs-punctuation">)</span> <br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/" class="category-chain-item">数据分析&amp;挖掘</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/0-5-R%E8%AF%AD%E8%A8%80/" class="category-chain-item">0-5.R语言</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/R%E8%AF%AD%E8%A8%80/" class="print-no-link">#R语言</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据类型</div>
+      <div>http://zuoyerumeng.site/2023/07/09/数据分析与挖掘/R语言/数据类型/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/R%E8%AF%AD%E8%A8%80/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="流程控制">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">流程控制</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/R%E8%AF%AD%E8%A8%80/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" title="基本语法">
+                        <span class="hidden-mobile">基本语法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

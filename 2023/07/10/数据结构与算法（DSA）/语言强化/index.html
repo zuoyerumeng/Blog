@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Java DS类架构图:    常用内置函数： 记不清具体包名就 import java.util.*;* *min,max *最大公约数：（无需调包！） 1BigInteger gcd&#x3D;x.gcd(y);  Hashset： 123456import java.util.HashSet;Set_name.size();Set_name.contains(); &#x2F;&#x2F;是否存在Set_name.add">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语言强化">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/%E8%AF%AD%E8%A8%80%E5%BC%BA%E5%8C%96/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="Java DS类架构图:    常用内置函数： 记不清具体包名就 import java.util.*;* *min,max *最大公约数：（无需调包！） 1BigInteger gcd&#x3D;x.gcd(y);  Hashset： 123456import java.util.HashSet;Set_name.size();Set_name.contains(); &#x2F;&#x2F;是否存在Set_name.add">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/%E8%AF%AD%E8%A8%80%E5%BC%BA%E5%8C%96/1688993315426.jpg">
+<meta property="article:published_time" content="2023-07-10T06:33:32.000Z">
+<meta property="article:modified_time" content="2023-07-12T06:48:53.116Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/%E8%AF%AD%E8%A8%80%E5%BC%BA%E5%8C%96/1688993315426.jpg">
+  
+  
+  
+  <title>语言强化 - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="语言强化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-10 14:33" pubdate>
+          2023年7月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">语言强化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><ul>
+<li>DS类架构图:</li>
+</ul>
+<p><img src="/2023/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/%E8%AF%AD%E8%A8%80%E5%BC%BA%E5%8C%96/1688993315426.jpg" srcset="/img/loading.gif" lazyload alt="1688993315426"></p>
+<ul>
+<li><p>常用内置函数：</p>
+<p><em>记不清具体包名就 import java</em><em>.<strong>util</strong>.*;</em>*</p>
+<p>*min,max</p>
+<p>*最大公约数：（无需调包！）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">BigInteger gcd=x.<span class="hljs-built_in">gcd</span>(y);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Hashset：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.HashSet;<br>Set_name.size();<br>Set_name.contains(); <span class="hljs-comment">//是否存在</span><br>Set_name.add(…);<br>Set_name.remove();<br>Set_name.clear();<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h2 id="容器-amp-迭代器"><a href="#容器-amp-迭代器" class="headerlink" title="容器&amp;迭代器"></a>容器&amp;迭代器</h2><h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<li><p>顺序容器</p>
+<p>*排放顺序是与其加入容器时的位置相对应</p>
+<p>*合法语法为&#x3D;&#x3D;、!&#x3D;、&gt;、&lt;</p>
+<p>*勿忘对应头文件（<vector>等等）</vector></p>
+<p>*具体分类：</p>
+<ol>
+<li><p>声明：vector<T>+名称（下同）：动态数组（通常用它）</T></p>
+</li>
+<li><p>list：双向链表，双向顺序访问&#x2F;遍历(链表不支持元素的随机访问），list在任何位置的插入和删除速度都很快，很方便。</p>
+</li>
+<li><p>string：字符串容器</p>
+</li>
+</ol>
+<p>注意：若用的是C++中的功能，调用的库函数必须是&lt;cstring.h&gt;!</p>
+</li>
+<li><p>关联容器</p>
+<p>*元素的位置由相关联的关键字值决定</p>
+<p>*平衡二叉树（查找、修改元素各种操作时间复杂度都为O(n))</p>
+<p>*多为const_…：只能用&#x3D;&#x3D;、!&#x3D;进行比较</p>
+<p>*声明：set<T>+名称（下同）, multiset, map, multimap(有无序、可否有重复元素）</T></p>
+<p>注意：#include&lt;…&gt;头文件勿忘！(）</p>
+<p>*具体分类：</p>
+<ul>
+<li>multiset<T> st;</T></li>
+</ul>
+<p>*存放并自动排序元素(默认为从小到大）</p>
+<p>*multiset&lt;int,greater<int>&gt;:从大到小排序的multiset（也可以是自定义的规则Rule1）</int></p>
+<ul>
+<li><p>set 插入元素可能不成功（因为元素不能重复）</p>
+</li>
+<li><p>map:键值对</p>
+</li>
+</ul>
+<blockquote>
+<p>*pair&lt;T1,T2&gt;类型等价于：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span>&#123;<br>     T1 first/key;<br>     T2 second/value;<br>&#125;;<br><span class="hljs-built_in">make_pair</span>(T1,T2)<span class="hljs-comment">//生成一个pair&lt;T1,T2&gt;变量</span><br><br><span class="hljs-keyword">typedef</span> map&lt;string,<span class="hljs-type">int</span>&gt;MP;<br>MP mp;<br>mp[key]=[value];<br></code></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>*每个种类的容器都有其对应的迭代器类型，且迭代器本身也可以选择定义类型（二者为组合关系，并不冲突）</p>
+<p>*由容器决定的迭代器具体分类：输入&#x2F;输出&#x2F;前向&#x2F;双向(p++或–,不能直接访问p[i]、比大小、互相相减)&#x2F;随机访问(p+或-i)迭代器</p>
+<table>
+<thead>
+<tr>
+<th align="left">array</th>
+<th align="left">随机访问迭代器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">vector</td>
+<td align="left">随机访问迭代器</td>
+</tr>
+<tr>
+<td align="left">deque</td>
+<td align="left">随机访问迭代器</td>
+</tr>
+<tr>
+<td align="left">list</td>
+<td align="left">双向迭代器</td>
+</tr>
+<tr>
+<td align="left">set &#x2F; multiset</td>
+<td align="left">双向迭代器</td>
+</tr>
+<tr>
+<td align="left">map &#x2F; multimap</td>
+<td align="left">双向迭代器</td>
+</tr>
+<tr>
+<td align="left">forward_list</td>
+<td align="left">前向迭代器</td>
+</tr>
+<tr>
+<td align="left">unordered_map &#x2F; unordered_multimap</td>
+<td align="left">前向迭代器</td>
+</tr>
+<tr>
+<td align="left">unordered_set &#x2F; unordered_multiset</td>
+<td align="left">前向迭代器</td>
+</tr>
+<tr>
+<td align="left">stack</td>
+<td align="left">不支持迭代器</td>
+</tr>
+<tr>
+<td align="left">queue</td>
+<td align="left">不支持迭代器</td>
+</tr>
+</tbody></table>
+<p>定义类型&amp;整个迭代器的声明方式：</p>
+<table>
+<thead>
+<tr>
+<th align="left">迭代器定义方式</th>
+<th align="left">具体格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">正向迭代器</td>
+<td align="left">容器类名::iterator 迭代器名;</td>
+</tr>
+<tr>
+<td align="left">常量正向迭代器</td>
+<td align="left">容器类名:::const_iterator 迭代器名;</td>
+</tr>
+<tr>
+<td align="left">反向迭代器</td>
+<td align="left">容器类名::reverse_iterator 迭代器名;</td>
+</tr>
+<tr>
+<td align="left">常量反向迭代器</td>
+<td align="left">容器类名::const_reverse_iterator 迭代器名;</td>
+</tr>
+</tbody></table>
+<p>*初始化（同指针）（即构造函数）：iter1&#x3D;ivec.begin();&#x2F;&#x2F;指向容器ivec首元素</p>
+<p>*具体功能：</p>
+<ul>
+<li><p>名称.find(v):若找到元素值i,返回一个迭代器，指向key&#x3D;&#x3D;1，若未找到，返回end()</p>
+</li>
+<li><p>名称.count(v):遍历并返回对应元素值i出现的次数</p>
+</li>
+<li><p>名称.insert(i,v)在下标为i处插入元素，值为v（PS：“,v”可省略)</p>
+</li>
+<li><p>名称.erase(i)删除迭代器i指向的元素</p>
+</li>
+</ul>
+<h2 id="库函数"><a href="#库函数" class="headerlink" title="库函数"></a>库函数</h2><h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><p>strlwr、strupr：字符串全部小写&#x2F;大写</p>
+<h3 id="algorithm库"><a href="#algorithm库" class="headerlink" title="algorithm库"></a>algorithm库</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp">min/max/<span class="hljs-function">swap</span><br><span class="hljs-function"><span class="hljs-title">gcd</span><span class="hljs-params">(x,y)</span></span><br><span class="hljs-function"><span class="hljs-title">reverse</span><span class="hljs-params">(lst+<span class="hljs-number">1</span>,lst+n+<span class="hljs-number">1</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">unique</span><span class="hljs-params">(lst+<span class="hljs-number">1</span>,lst+n+<span class="hljs-number">1</span>)</span> <span class="hljs-comment">//返回最后一个数的地址</span></span><br><span class="hljs-function"><span class="hljs-title">partial_sum</span><span class="hljs-params">(vec.begin(),vec.end(),back_inserter(dst) <span class="hljs-comment">//求前缀和</span></span></span><br><span class="hljs-params"><span class="hljs-function">next_permutation(vec.begin(),vec.end()) <span class="hljs-comment">//求全排列</span></span></span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="string库"><a href="#string库" class="headerlink" title="string库"></a>string库</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;string&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>获取长度：length()&#x2F;size()</p>
+</li>
+<li><p>拷贝</p>
+<ol>
+<li><p>一般：直接&#x3D;即可</p>
+</li>
+<li><p>特别的：</p>
+</li>
+</ol>
+<p>*string str2&#x3D;string(str1,index) 从字符串str1第index个字符开始到结束（注：此处str2需为string对象，若为字符数组则变成前index个字符，下同！）</p>
+<p>*string str2&#x3D;string(str1,index,len) 从字符串str1第index个字符开始，拷贝len个字符</p>
+</li>
+<li><p>修改</p>
+<p>*追加：str1.append(str2)</p>
+<p>*插入：str1.insesrt(index,str2) 在str1的index位置插入字符串str2</p>
+<p>*删除：str.erase(index,len)将str1从index开始的len个字符删除</p>
+<p>*替换：str1.replace(index,len,str2)将str1从index开始的len个字符替换成str2</p>
+</li>
+<li><p>比较</p>
+<p>str1.compare(str2) 结果为±1，0</p>
+</li>
+<li><p>交换</p>
+<p>str1.swap(str2)</p>
+</li>
+<li><p>查找位置</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">str1.<span class="hljs-built_in">find</span>(str2) <span class="hljs-comment">//查找str2在str1中第一次出现的位置</span><br>str1.<span class="hljs-built_in">rfind</span>(str2) <span class="hljs-comment">//查找str2在str1中最后一次出现的位置</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h3><p>*使用参考顺序：单独的排序&#x2F;查找功能→借助set或者map自动排序</p>
+<p>提醒：勿忘#include以及using namespace std;!</p>
+<ul>
+<li><p>广义的sort函数排序</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">sort</span>(数组名<span class="hljs-number">1</span>+n1,数组名<span class="hljs-number">2</span>+n2,排序规则结构名())<br><span class="hljs-keyword">struct</span> 结构名<span class="hljs-comment">//(例如：StudentRule1)</span><br>｛<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-type">const</span> 数据类型&amp;a1, <span class="hljs-type">const</span> 数据类型&amp;a2)</span> <span class="hljs-type">const</span></span><br><span class="hljs-function">  </span>&#123;<br>   <span class="hljs-comment">//建立一定的排序规则</span><br>   <span class="hljs-comment">//若a1应该放在a2前面，则返回TRUE，反之返回FALSE</span><br>  <span class="hljs-keyword">if</span>...<br>      <span class="hljs-keyword">return</span> True;<br> ｝<br>｝<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>二分查找</p>
+<p>实际上应用于容器返回迭代器，此处为数组返回指针</p>
+<ul>
+<li>binary_search(数组名+n1,数组名+n2,值,（可有可无：排序结构名)</li>
+</ul>
+<p>*在从小到大排好序的基本类型数组上进行二分查找</p>
+<p>*查找区间为左闭右开！</p>
+<p>*仅返回bool值！</p>
+<ul>
+<li>lower_bound(数组名+n1,数组名+n2,值,(排序规则名()))</li>
+</ul>
+<p><em>返回一个指针</em>p</p>
+<p><em>这个</em>p查找区间内下标最小的不小于对应值的元素，若找不到则指向下标为n2的元素</p>
+<ul>
+<li>upper_bound():同理~（下标仍为最小！）</li>
+<li>find(数组名+n1,数组名+n2,值):可以不排好序</li>
+</ul>
+</li>
+<li><p>其他：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">*p=<span class="hljs-built_in">find</span>(left,right,target) <br>    <span class="hljs-comment">//left和right相当于sort函数中参数的指针形式，左闭右开，其指向的是在区域内查找到的第一个目标元素；如果查找失败，则该迭代器的指向和right相同</span><br><span class="hljs-built_in">merge</span>(left1,right1,left2,right2,result) <br>    <span class="hljs-comment">//用于合并两个同时升/降序的数组，参数都是迭代器</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="unordered-set"><a href="#unordered-set" class="headerlink" title="unordered_set"></a>unordered_set</h3><p>就是集合（Python里的set）~</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;unordered_set&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br>unordered_set &lt;string&gt; s;<br>s.<span class="hljs-built_in">size</span>();<br>s.<span class="hljs-built_in">empty</span>();<br>s.<span class="hljs-built_in">find</span>(ele);<br>   <span class="hljs-comment">//没找到则返回最后元素之后位置的迭代器（和s.end()相等说明没找到，类似于一般迭代器）</span><br>s.<span class="hljs-built_in">count</span>(ele);<br>s.<span class="hljs-built_in">insert</span>(ele);<br>s.<span class="hljs-built_in">erase</span>(ele);<br>s.<span class="hljs-built_in">clear</span>();<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/" class="category-chain-item">数据结构与算法（DSA）</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="print-no-link">#数据结构与算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>语言强化</div>
+      <div>http://zuoyerumeng.site/2023/07/10/数据结构与算法（DSA）/语言强化/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月10日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年7月12日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/" title="栈">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">栈</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88DSA%EF%BC%89/%E7%BB%86%E5%BF%83%E4%B8%8E%E6%96%B9%E6%B3%95/" title="细心&amp;方法">
+                        <span class="hidden-mobile">细心&amp;方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

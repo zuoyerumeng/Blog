@@ -1,0 +1,1167 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本语法注释12345%这是单行注释\begin&#123;comment&#125;这是多行注释\end&#123;comment&#125;    标题123\section&#123;一级标题内容&#125;\subsection&#123;二级标题内容&#125;\subsubsection&#123;三级标题内容&#125;    段落首行缩进： 123\usepackage&#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LaTeX">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/13/%E8%AF%BB%E7%A0%94/%E7%A7%91%E7%A0%94/LaTeX/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="基本语法注释12345%这是单行注释\begin&#123;comment&#125;这是多行注释\end&#123;comment&#125;    标题123\section&#123;一级标题内容&#125;\subsection&#123;二级标题内容&#125;\subsubsection&#123;三级标题内容&#125;    段落首行缩进： 123\usepackage&#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-13T14:02:14.000Z">
+<meta property="article:modified_time" content="2023-09-01T12:04:30.763Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="科研">
+<meta property="article:tag" content="LaTeX">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>LaTeX - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LaTeX"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-13 22:02" pubdate>
+          2023年7月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          66 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">LaTeX</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a><strong>基本语法</strong></h1><h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a><strong>注释</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">%这是单行注释</span><br><span class="hljs-keyword">\begin</span>&#123;comment&#125;<br>这是<br>多行注释<br><span class="hljs-keyword">\end</span>&#123;comment&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a><strong>标题</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\section</span>&#123;一级标题内容&#125;<br><span class="hljs-keyword">\subsection</span>&#123;二级标题内容&#125;<br><span class="hljs-keyword">\subsubsection</span>&#123;三级标题内容&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="段落"><a href="#段落" class="headerlink" title="段落"></a><strong>段落</strong></h2><p>首行缩进：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;indentfirst&#125;<br><span class="hljs-keyword">\setlength</span>&#123;<span class="hljs-keyword">\parindent</span>&#125;&#123;2em&#125; <br><span class="hljs-keyword">\noindent</span> 正文 <span class="hljs-comment">%关闭某段的首行缩进</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a><strong>列表</strong></h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a><strong>无序列表</strong></h3><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;itemize&#125;[leftmargin=2em,labelsep=0.5em]<br>        <span class="hljs-comment">%leftmargin设置了左边距，labelsep设置了标签（项目符号）和文本之间的间距</span><br><span class="hljs-keyword">\item</span>[标签] 条目内容<br><span class="hljs-keyword">\end</span>&#123;itemize&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a><strong>有序列表</strong></h3><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;enumerate&#125;[可选格式]<br><span class="hljs-keyword">\item</span>[标签] 条目内容<br><span class="hljs-keyword">\end</span>&#123;enumerate&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a><strong>符号</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex">`、&#x27; <span class="hljs-comment">%分别表示‘、’</span><br>``、&#x27;&#x27; <span class="hljs-comment">%分别表示“、”</span><br>-、--、--- <span class="hljs-comment">%连字号-、短破折号—、长破折号——</span><br><span class="hljs-keyword">\dots</span> <span class="hljs-comment">%省略号</span><br><span class="hljs-keyword">\footnote</span>&#123;text for footnote&#125; <span class="hljs-comment">%脚注（自动在文本中插入一个上标数字，被称为脚注的标号（mark），同时在页面的底部插入脚注的标记和内容）</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a><strong>字体</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\textbf</span>&#123;加粗&#125; <br><span class="hljs-keyword">\emph</span>&#123;斜体&#125;<br><span class="hljs-keyword">\underline</span>&#123;下划线&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="图表"><a href="#图表" class="headerlink" title="图表"></a><strong>图表</strong></h1><h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a><strong>图片</strong></h2><h3 id="单图"><a href="#单图" class="headerlink" title="单图"></a><strong>单图</strong></h3><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;graphicx&#125;<br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-keyword">\includegraphics</span>&#123;a.jpg&#125;<br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="多图"><a href="#多图" class="headerlink" title="多图"></a><strong>多图</strong></h3><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\ </span>begin &#123; figure &#125;[ htbp ]<br>        <span class="hljs-keyword">\ </span>centering<br>        <span class="hljs-keyword">\ </span>subfigure [ Hot Map of one Room ]&#123; <span class="hljs-comment">% 图 片 1([] 内 为 子 图 标 题 )</span><br>        <span class="hljs-keyword">\ </span>label &#123; fig : sub . roomhot &#125; <span class="hljs-comment">% 子 图 1 的 标 签</span><br>        <span class="hljs-keyword">\ </span>i nc l ud e gr ap h ic s [ width =0.45<span class="hljs-keyword">\ </span>textwidth ]&#123; XXX . jpg &#125;&#125; <span class="hljs-comment">% 子 图 1 位 置</span><br>        <span class="hljs-keyword">\ </span>subfigure [ Hot Map of one Floor ]&#123; <span class="hljs-comment">% 图 片 2</span><br>        <span class="hljs-keyword">\ </span>label &#123; fig : sub . floorhot &#125; <span class="hljs-comment">% 子 图 2 的 标 签</span><br>        <span class="hljs-keyword">\ </span>i nc l ud e gr ap h ic s [ width =0.45<span class="hljs-keyword">\ </span>textwidth ]&#123; XXX . jpg &#125;&#125; <span class="hljs-comment">% 子 图 2 位 置</span><br>        <span class="hljs-keyword">\ </span>caption &#123; Hot Map of one Room and one Floor &#125; <span class="hljs-comment">% 总 图 标 题</span><br>        <span class="hljs-keyword">\ </span>label &#123; fig : hot &#125; <span class="hljs-comment">% 总 图 标 签</span><br><span class="hljs-keyword">\ </span>end &#123; figure &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id><a href="#" class="headerlink" title></a></h2><h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a><strong>表格</strong></h2><h2 id="自动生成"><a href="#自动生成" class="headerlink" title="自动生成"></a><strong>自动生成</strong></h2><p> <a target="_blank" rel="noopener" href="https://www.tablesgenerator.com/">https://www.tablesgenerator.com/</a></p>
+<h2 id="手搓"><a href="#手搓" class="headerlink" title="手搓"></a><strong>手搓</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;tabular&#125;&#123;|l|c|r|&#125;<br> <span class="hljs-keyword">\hline</span><br>操作系统<span class="hljs-built_in">&amp;</span> 发行版<span class="hljs-built_in">&amp;</span> 编辑器<span class="hljs-keyword">\\</span><br> <span class="hljs-keyword">\hline</span><br>Windows <span class="hljs-built_in">&amp;</span> MikTeX <span class="hljs-built_in">&amp;</span> TexMakerX <span class="hljs-keyword">\\</span><br> <span class="hljs-keyword">\hline</span><br>Unix/Linux <span class="hljs-built_in">&amp;</span> teTeX <span class="hljs-built_in">&amp;</span> Kile <span class="hljs-keyword">\\</span><br> <span class="hljs-keyword">\hline</span><br>Mac OS <span class="hljs-built_in">&amp;</span> MacTeX <span class="hljs-built_in">&amp;</span> TeXShop <span class="hljs-keyword">\\</span><br> <span class="hljs-keyword">\hline</span><br>通用<span class="hljs-built_in">&amp;</span> TeX Live <span class="hljs-built_in">&amp;</span> TeXworks <span class="hljs-keyword">\\</span><br> <span class="hljs-keyword">\hline</span><br><span class="hljs-keyword">\end</span>&#123;tabular&#125;<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">操作系统</th>
+<th align="center">发行版</th>
+<th align="right">编辑器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Windows</td>
+<td align="center">MikTeX</td>
+<td align="right">TexMakerX</td>
+</tr>
+<tr>
+<td align="left">Unix&#x2F;Linux</td>
+<td align="center">teTeX</td>
+<td align="right">Kile</td>
+</tr>
+<tr>
+<td align="left">Mac OS</td>
+<td align="center">MacTeX</td>
+<td align="right">TeXShop</td>
+</tr>
+<tr>
+<td align="left">通用</td>
+<td align="center">TeX Live</td>
+<td align="right">TeXworks</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三线表：</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\ </span>begin &#123; table &#125;[! htbp ]<br>     <span class="hljs-keyword">\ </span>begin &#123; center &#125;<br>     <span class="hljs-keyword">\ </span>caption &#123; Fitness of the three formations for the Huskies &#125;<br>     <span class="hljs-keyword">\ </span>begin &#123; tabular &#125;&#123; cccc &#125;<br>     <span class="hljs-keyword">\ </span>toprule<br>     Formation <span class="hljs-built_in">&amp;</span> Coordination <span class="hljs-built_in">&amp;</span> Flexibility <span class="hljs-built_in">&amp;</span> Pressing <span class="hljs-keyword">\\</span><br>     <span class="hljs-keyword">\ </span>midrule<br>     <span class="hljs-keyword">\ </span>textsf &#123;4 -3 -3&#125; <span class="hljs-built_in">&amp;</span>5.1043 <span class="hljs-built_in">&amp;</span>32.42 <span class="hljs-built_in">&amp;</span>42.37<span class="hljs-keyword">\\</span><br>     <span class="hljs-keyword">\ </span>textsf &#123;4 -4 -2&#125; <span class="hljs-built_in">&amp;</span>6.0104 <span class="hljs-built_in">&amp;</span>40.88 <span class="hljs-built_in">&amp;</span>43.58<span class="hljs-keyword">\\</span><br>     <span class="hljs-keyword">\ </span>textsf &#123;5 -3 -2&#125; <span class="hljs-built_in">&amp;</span>7.5032 <span class="hljs-built_in">&amp;</span>23.50 <span class="hljs-built_in">&amp;</span>49.67<span class="hljs-keyword">\\</span><br>     <span class="hljs-keyword">\ </span>bottomrule<br>     <span class="hljs-keyword">\ </span>end &#123; tabular &#125;<span class="hljs-keyword">\ </span>label &#123; tb : Fitness <span class="hljs-built_in">_</span> formations &#125;<br>     <span class="hljs-keyword">\ </span>end &#123; center &#125;<br> <span class="hljs-keyword">\ </span>end &#123; table &#125;<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">Formation</th>
+<th align="center">Coordination</th>
+<th align="center">Flexibility</th>
+<th align="center">Pressing</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$4-3-3$</td>
+<td align="center">5.1043</td>
+<td align="center">32.42</td>
+<td align="center">42.37</td>
+</tr>
+<tr>
+<td align="center">$4-4-2$</td>
+<td align="center">6.0104</td>
+<td align="center">40.88</td>
+<td align="center">43.58</td>
+</tr>
+<tr>
+<td align="center">$5-3-2$</td>
+<td align="center">7.5032</td>
+<td align="center">23.50</td>
+<td align="center">49.67</td>
+</tr>
+</tbody></table>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h1><h2 id="简约版"><a href="#简约版" class="headerlink" title="简约版"></a><strong>简约版</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;lstlisting&#125;[language=C]<br>你的代码<br><span class="hljs-keyword">\end</span>&#123;lstlisting&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="复杂版"><a href="#复杂版" class="headerlink" title="复杂版"></a><strong>复杂版</strong></h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;listings&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;color&#125;<br><br><span class="hljs-keyword">\definecolor</span>&#123;dkgreen&#125;&#123;rgb&#125;&#123;0,0.6,0&#125;<br><span class="hljs-keyword">\definecolor</span>&#123;gray&#125;&#123;rgb&#125;&#123;0.5,0.5,0.5&#125;<br><span class="hljs-keyword">\definecolor</span>&#123;mauve&#125;&#123;rgb&#125;&#123;0.58,0,0.82&#125;<br><br><span class="hljs-keyword">\lstset</span>&#123; <span class="hljs-comment">%</span><br>  language=Octave,                <span class="hljs-comment">% the language of the code</span><br>  basicstyle=<span class="hljs-keyword">\footnotesize</span>,           <span class="hljs-comment">% the size of the fonts that are used for the code</span><br>  numbers=left,                   <span class="hljs-comment">% where to put the line-numbers</span><br>  numberstyle=<span class="hljs-keyword">\tiny</span><span class="hljs-keyword">\color</span>&#123;gray&#125;,  <span class="hljs-comment">% the style that is used for the line-numbers</span><br>  stepnumber=2,                   <span class="hljs-comment">% the step between two line-numbers. If it&#x27;s 1, each line</span><br>                                  <span class="hljs-comment">% will be numbered</span><br>  numbersep=5pt,                  <span class="hljs-comment">% how far the line-numbers are from the code</span><br>  backgroundcolor=<span class="hljs-keyword">\color</span>&#123;white&#125;,      <span class="hljs-comment">% choose the background color. You must add \usepackage&#123;color&#125;</span><br>  showspaces=false,               <span class="hljs-comment">% show spaces adding particular underscores</span><br>  showstringspaces=false,         <span class="hljs-comment">% underline spaces within strings</span><br>  showtabs=false,                 <span class="hljs-comment">% show tabs within strings adding particular underscores</span><br>  frame=single,                   <span class="hljs-comment">% adds a frame around the code</span><br>  rulecolor=<span class="hljs-keyword">\color</span>&#123;black&#125;,        <span class="hljs-comment">% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))</span><br>  tabsize=2,                      <span class="hljs-comment">% sets default tabsize to 2 spaces</span><br>  captionpos=b,                   <span class="hljs-comment">% sets the caption-position to bottom</span><br>  breaklines=true,                <span class="hljs-comment">% sets automatic line breaking</span><br>  breakatwhitespace=false,        <span class="hljs-comment">% sets if automatic breaks should only happen at whitespace</span><br>  title=<span class="hljs-keyword">\lstname</span>,                   <span class="hljs-comment">% show the filename of files included with \lstinputlisting;</span><br>                                  <span class="hljs-comment">% also try caption instead of title</span><br>  keywordstyle=<span class="hljs-keyword">\color</span>&#123;blue&#125;,          <span class="hljs-comment">% keyword style</span><br>  commentstyle=<span class="hljs-keyword">\color</span>&#123;dkgreen&#125;,       <span class="hljs-comment">% comment style</span><br>  stringstyle=<span class="hljs-keyword">\color</span>&#123;mauve&#125;,         <span class="hljs-comment">% string literal style</span><br>  escapeinside=&#123;<span class="hljs-keyword">\%</span>*&#125;&#123;*)&#125;,            <span class="hljs-comment">% if you want to add LaTeX within your code</span><br>  morekeywords=&#123;*,...&#125;               <span class="hljs-comment">% if you want to add more keywords to the set</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h1><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><span class="hljs-keyword">\usepackage</span>[UTF8]&#123;ctex&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;algorithm&#125; <span class="hljs-comment">% 排版算法</span><br><span class="hljs-keyword">\usepackage</span>&#123;algorithmic&#125; <span class="hljs-comment">% 排版算法</span><br><br><span class="hljs-keyword">\title</span>&#123;Algorithm&#125;<br><span class="hljs-keyword">\author</span>&#123;NSJim Green&#125;<br><span class="hljs-keyword">\date</span>&#123;October 2020&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><br><span class="hljs-keyword">\maketitle</span><br><br><span class="hljs-keyword">\section</span>&#123;Algorithm 1&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;algorithm&#125;<br><span class="hljs-keyword">\caption</span>&#123;CheckSum(A,x)&#125; <span class="hljs-comment">%算法标题</span><br><span class="hljs-keyword">\label</span>&#123;alg2&#125; <span class="hljs-comment">%标签</span><br><span class="hljs-keyword">\begin</span>&#123;algorithmic&#125; <span class="hljs-comment">%算法开始</span><br><span class="hljs-keyword">\STATE</span> &#123;<span class="hljs-keyword">\bf</span> Input:&#125; An array A and a value x  <span class="hljs-comment">%也可以用\textbf&#123;Input:&#125;</span><br><span class="hljs-keyword">\STATE</span> &#123;<span class="hljs-keyword">\bf</span> Output:&#125; A bool value show if there is two elements in A whose sum is x<br><span class="hljs-keyword">\STATE</span> A <span class="hljs-built_in">$</span><span class="hljs-keyword">\gets</span><span class="hljs-built_in">$</span> SORT(A)<br><span class="hljs-keyword">\STATE</span> n <span class="hljs-built_in">$</span><span class="hljs-keyword">\gets</span><span class="hljs-built_in">$</span> length(n)<br><span class="hljs-keyword">\FOR</span>&#123;i <span class="hljs-built_in">$</span><span class="hljs-keyword">\gets</span><span class="hljs-built_in">$</span> 0 to n&#125;<br>    <span class="hljs-keyword">\IF</span>&#123;Binary-search(A,x-A[i],1,n)&#125;<br>    <span class="hljs-keyword">\STATE</span> return true<br>    <span class="hljs-keyword">\ENDIF</span><br><span class="hljs-keyword">\ENDFOR</span><br><span class="hljs-keyword">\STATE</span> return false<br><span class="hljs-keyword">\end</span>&#123;algorithmic&#125;<br><span class="hljs-keyword">\end</span>&#123;algorithm&#125;<br><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">Algorithm 1 CheckSum $(\mathrm{A}, \mathrm{x})$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Input: An array A and a value $\mathrm{x}$</td>
+</tr>
+<tr>
+<td align="left">Output: $\mathrm{A}$ bool value show if there is two elements in $\mathrm{A}$ whose sum is $\mathrm{x}$</td>
+</tr>
+<tr>
+<td align="left">$\mathrm{A} \leftarrow \operatorname{SORT}(\mathrm{A})$</td>
+</tr>
+<tr>
+<td align="left">$\mathrm{n} \leftarrow$ length(n)</td>
+</tr>
+<tr>
+<td align="left">for $\mathrm{i} \leftarrow 0$ to $\mathrm{n}$ do</td>
+</tr>
+<tr>
+<td align="left">if Binary-search $(\mathrm{A}, \mathrm{x}-\mathrm{A}[\mathrm{i}], 1, \mathrm{n})$ then</td>
+</tr>
+<tr>
+<td align="left">return true</td>
+</tr>
+<tr>
+<td align="left">end if</td>
+</tr>
+<tr>
+<td align="left">end for</td>
+</tr>
+<tr>
+<td align="left">return false</td>
+</tr>
+</tbody></table>
+<h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br>    <span class="hljs-keyword">\[</span> ... <span class="hljs-keyword">\]</span> <span class="hljs-comment">%行间公式（会对之前的文字换行，然后公式单独成行并居中显示）</span><br>    <span class="hljs-built_in">$</span> ... <span class="hljs-built_in">$</span> <span class="hljs-comment">%行内公式（让你的公式和之前的文字处于同一行）</span><br>    <br>    <span class="hljs-comment">%长公式的对齐</span><br>    <span class="hljs-keyword">\[</span><span class="hljs-keyword">\begin</span>&#123;aligned&#125; <br>    x =&#123;&#125;<span class="hljs-built_in">&amp;</span> a+b+c+&#123;&#125; <span class="hljs-keyword">\\</span><br>    <span class="hljs-built_in">&amp;</span>d+e+f+g<br>    <span class="hljs-keyword">\end</span>&#123;aligned&#125;<span class="hljs-keyword">\]</span><br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br><br><span class="hljs-comment">%需要对齐的公式组</span><br><span class="hljs-keyword">\begin</span>&#123;align&#125;<br>a <span class="hljs-built_in">&amp;</span>= b+c+d <span class="hljs-keyword">\\</span><br>x <span class="hljs-built_in">&amp;</span>= y+z<br><span class="hljs-keyword">\end</span>&#123;align&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="参数变量"><a href="#参数变量" class="headerlink" title="参数变量"></a>参数变量</h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">%这是单行注释</span><br><span class="hljs-keyword">\begin</span>&#123;comment&#125;<br>这是<br>多行注释<br><span class="hljs-keyword">\end</span>&#123;comment&#125;<br><br><span class="hljs-keyword">\alpha</span> <span class="hljs-comment">%α</span><br><span class="hljs-keyword">\boldsymbol</span>&#123;<span class="hljs-keyword">\alpha</span>&#125; <span class="hljs-comment">%加粗</span><br>x<span class="hljs-built_in">^</span>&#123;a+b&#125; <span class="hljs-comment">%上标</span><br>y<span class="hljs-built_in">_</span>&#123;2k+1&#125; <span class="hljs-comment">%下标</span><br><span class="hljs-keyword">\sqrt</span>[3]&#123;2&#125; <span class="hljs-comment">%三次根号2</span><br><span class="hljs-keyword">\vec</span>&#123;a&#125; <span class="hljs-comment">%向量</span><br><span class="hljs-keyword">\left</span>[ <span class="hljs-keyword">\matrix</span>&#123; 1 <span class="hljs-built_in">&amp;</span> x <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">^</span>2<span class="hljs-keyword">\\</span> 1 <span class="hljs-built_in">&amp;</span> y <span class="hljs-built_in">&amp;</span> y<span class="hljs-built_in">^</span>2<span class="hljs-keyword">\\</span> 1 <span class="hljs-built_in">&amp;</span> z <span class="hljs-built_in">&amp;</span> z<span class="hljs-built_in">^</span>2 &#125; <span class="hljs-keyword">\right</span>]  <span class="hljs-comment">%矩阵</span><br>X=<span class="hljs-keyword">\left</span>| <span class="hljs-keyword">\begin</span>&#123;matrix&#125; x<span class="hljs-built_in">_</span>&#123;11&#125; <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">_</span>&#123;12&#125; <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\cdots</span> <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">_</span>&#123;1d&#125;<span class="hljs-keyword">\\</span> x<span class="hljs-built_in">_</span>&#123;21&#125; <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">_</span>&#123;22&#125; <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\cdots</span> <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">_</span>&#123;2d&#125;<span class="hljs-keyword">\\</span> <span class="hljs-keyword">\vdots</span> <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\vdots</span> <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\ddots</span> <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\vdots</span> <span class="hljs-keyword">\\</span> x<span class="hljs-built_in">_</span>&#123;11&#125; <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">_</span>&#123;12&#125; <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\cdots</span> <span class="hljs-built_in">&amp;</span> x<span class="hljs-built_in">_</span>&#123;1d&#125;<span class="hljs-keyword">\\</span> <span class="hljs-keyword">\end</span>&#123;matrix&#125; <span class="hljs-keyword">\right</span>| <span class="hljs-comment">%行列式</span><br></code></pre></td></tr></table></figure>
+
+<p>$$<br>\left[ \matrix{ 1 &amp; x &amp; x^2\ 1 &amp; y &amp; y^2\ 1 &amp; z &amp; z^2 } \right]  %矩阵<br>X&#x3D;\left| \begin{matrix} x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1d}\ x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2d}\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1d}\ \end{matrix} \right| %行列式<br>$$</p>
+<ul>
+<li>字母表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>小写字母代码</strong></th>
+<th><strong>小写字母效果</strong></th>
+<th><strong>大写字母代码</strong></th>
+<th><strong>大写字母效果</strong></th>
+<th><strong>异体字母代码</strong></th>
+<th><strong>异体字母效果</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\alpha$</td>
+<td>α  \alphaα</td>
+<td>$\Alpha$</td>
+<td>A  \AlphaA</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\beta$</td>
+<td>β  \betaβ</td>
+<td>$\Beta$</td>
+<td>B  \BetaB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\gamma$</td>
+<td>γ  \gammaγ</td>
+<td>$\Gamma$</td>
+<td>Γ  \GammaΓ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\delta$</td>
+<td>δ  \deltaδ</td>
+<td>$\Delta$</td>
+<td>Δ  \DeltaΔ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\epsilon$</td>
+<td>ϵ  \epsilonϵ</td>
+<td>$\Epsilon$</td>
+<td>E  \EpsilonE</td>
+<td>$\varepsilon$</td>
+<td>ε  \varepsilonε</td>
+</tr>
+<tr>
+<td>$\zeta$</td>
+<td>ζ  \zetaζ</td>
+<td>$\Zeta$</td>
+<td>Z  \ZetaZ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\eta$</td>
+<td>η  \etaη</td>
+<td>$\Eta$</td>
+<td>H  \EtaH</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\theta$</td>
+<td>θ  \thetaθ</td>
+<td>$\Theta$</td>
+<td>Θ  \ThetaΘ</td>
+<td>$\vartheta$</td>
+<td>ϑ  \varthetaϑ</td>
+</tr>
+<tr>
+<td>$\iota$</td>
+<td>ι  \iotaι</td>
+<td>$\Iota$</td>
+<td>I  \IotaI</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\kappa$</td>
+<td>κ  \kappaκ</td>
+<td>$\Kappa$</td>
+<td>K  \KappaK</td>
+<td>$\varkappa$</td>
+<td>ϰ \varkappaϰ</td>
+</tr>
+<tr>
+<td>$\lambda$</td>
+<td>λ  \lambdaλ</td>
+<td>$\Lambda$</td>
+<td>Λ  \LambdaΛ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\mu$</td>
+<td>μ  \muμ</td>
+<td>$\Mu$</td>
+<td>M  \MuM</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\nu$</td>
+<td>ν  \nuν</td>
+<td>$\Nu$</td>
+<td>N  \NuN</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\xi$</td>
+<td>ξ  \xiξ</td>
+<td>$\Xi$</td>
+<td>Ξ  \XiΞ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\omicron$</td>
+<td>ο  \omicronο</td>
+<td>$\Omicron$</td>
+<td>O  \OmicronO</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\pi$</td>
+<td>π  \piπ</td>
+<td>$\Pi$</td>
+<td>Π  \PiΠ</td>
+<td>$\varpi$</td>
+<td>ϖ  \varpiϖ</td>
+</tr>
+<tr>
+<td>$\rho$</td>
+<td>ρ  \rhoρ</td>
+<td>$\Rho$</td>
+<td>P  \RhoP</td>
+<td>$\varrho$</td>
+<td>ϱ  \varrhoϱ</td>
+</tr>
+<tr>
+<td>$\sigma$</td>
+<td>σ  \sigmaσ</td>
+<td>$\Sigma$</td>
+<td>Σ  \SigmaΣ</td>
+<td>$\varsigma$</td>
+<td>ς  \varsigmaς</td>
+</tr>
+<tr>
+<td>$\tau$</td>
+<td>τ  \tauτ</td>
+<td>$\Tau$</td>
+<td>T  \TauT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\upsilon$</td>
+<td>υ  \upsilonυ</td>
+<td>$\Upsilon$</td>
+<td>Υ  \UpsilonΥ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\phi$</td>
+<td>ϕ  \phiϕ</td>
+<td>$\Phi$</td>
+<td>Φ  \PhiΦ</td>
+<td>$\varphi$</td>
+<td>φ  \varphiφ</td>
+</tr>
+<tr>
+<td>$\chi$</td>
+<td>χ  \chiχ</td>
+<td>$\Chi$</td>
+<td>X  \ChiX</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\psi$</td>
+<td>ψ  \psiψ</td>
+<td>$\Psi$</td>
+<td>Ψ  \PsiΨ</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\omega$</td>
+<td>ω  \omegaω</td>
+<td>$\Omega$</td>
+<td>Ω  \OmegaΩ</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a><strong>运算符</strong></h2><h3 id="基本运算符"><a href="#基本运算符" class="headerlink" title="基本运算符"></a><strong>基本运算符</strong></h3><p>± ：\pm</p>
+<p>× ：\times</p>
+<p>÷：\div</p>
+<p>∣：\mid</p>
+<p>log ：\log</p>
+<p>lg ：\lg</p>
+<p>ln ：\ln</p>
+<h3 id="比较符号"><a href="#比较符号" class="headerlink" title="比较符号"></a><strong>比较符号</strong></h3><p>≤：\leq</p>
+<p>≥：\geq</p>
+<p>≠：\neq</p>
+<p>≈：\approx</p>
+<p>≡：\equiv</p>
+<p>∑：\sum</p>
+<p>∏：\prod</p>
+<p>∐：\coprod</p>
+<h3 id="微积分"><a href="#微积分" class="headerlink" title="微积分"></a><strong>微积分</strong></h3><p>y′：y^\prime</p>
+<p>∫：\int</p>
+<p>∬ ：\iint</p>
+<p>∭ ：\iiint</p>
+<p>⨌：\iiiint</p>
+<p>∮ ：\oint</p>
+<p>lim ：\lim</p>
+<p>∞ ：\infty</p>
+<p>∇：\nabla</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>分段函数：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs latex">y= <span class="hljs-keyword">\begin</span>&#123;cases&#125;<br>-x,<span class="hljs-keyword">\quad</span> x<span class="hljs-keyword">\leq</span> 0 <span class="hljs-keyword">\\</span><br>x,<span class="hljs-keyword">\quad</span> x&gt;0<br><span class="hljs-keyword">\end</span>&#123;cases&#125; <br></code></pre></td></tr></table></figure>
+
+<p>$$<br>y&#x3D; \begin{cases}<br>-x,\quad x\leq 0 \<br>x,\quad x&gt;0<br>\end{cases}<br>$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BB%E7%A0%94/" class="category-chain-item">读研</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AF%BB%E7%A0%94/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
+      
+        <a href="/tags/LaTeX/" class="print-no-link">#LaTeX</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LaTeX</div>
+      <div>http://zuoyerumeng.site/2023/07/13/读研/科研/LaTeX/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/13/%E8%AF%BB%E7%A0%94/%E7%A7%91%E7%A0%94/Word/" title="Word">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Word</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/11/hello-world/" title="欢迎来到昨夜如梦的梦之夜！">
+                        <span class="hidden-mobile">欢迎来到昨夜如梦的梦之夜！</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>

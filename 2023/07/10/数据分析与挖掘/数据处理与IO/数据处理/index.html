@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Naixu-2.jpg">
+  <link rel="icon" href="/img/Naixu-2.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="昨夜如梦">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="*数据源统一转成以Excel为基础，必要时用SPSS辅助 *以下所有步骤均已确定会用Excel和SPSS联合处理 数据清洗（纠正错误）缺失值处理缺失率较高直接删除，否则填充根据分布情况和统计学模型估计出的最可能的值&#x2F;平均值&#x2F;插值算法 重复值处理删去~ 异常值（离群点）处理 判断是否为真异常：  *一般用3σ法则、箱线图（四分位数）即可~&#x3D; *其他具体方法：  基于绝对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据处理">
+<meta property="og:url" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8EIO/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="昨夜如梦的梦之夜">
+<meta property="og:description" content="*数据源统一转成以Excel为基础，必要时用SPSS辅助 *以下所有步骤均已确定会用Excel和SPSS联合处理 数据清洗（纠正错误）缺失值处理缺失率较高直接删除，否则填充根据分布情况和统计学模型估计出的最可能的值&#x2F;平均值&#x2F;插值算法 重复值处理删去~ 异常值（离群点）处理 判断是否为真异常：  *一般用3σ法则、箱线图（四分位数）即可~&#x3D; *其他具体方法：  基于绝对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8EIO/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1688920498482.jpg">
+<meta property="article:published_time" content="2023-07-09T16:29:49.000Z">
+<meta property="article:modified_time" content="2023-08-17T03:00:22.114Z">
+<meta property="article:author" content="昨夜如梦">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zuoyerumeng.site/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8EIO/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1688920498482.jpg">
+  
+  
+  
+  <title>数据处理 - 昨夜如梦的梦之夜</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zuoyerumeng.site","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+<meta name="generator" content="Hexo 7.0.0-rc2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>昨夜如梦的梦之夜</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/School.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据处理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-10 00:29" pubdate>
+          2023年7月10日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据处理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>*数据源统一转成以Excel为基础，必要时用SPSS辅助</p>
+<p>*以下所有步骤均已确定会用Excel和SPSS联合处理</p>
+<h1 id="数据清洗（纠正错误）"><a href="#数据清洗（纠正错误）" class="headerlink" title="数据清洗（纠正错误）"></a>数据清洗（纠正错误）</h1><h2 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h2><p>缺失率较高直接删除，否则填充根据分布情况和统计学模型估计出的最可能的值&#x2F;平均值&#x2F;插值算法</p>
+<h2 id="重复值处理"><a href="#重复值处理" class="headerlink" title="重复值处理"></a>重复值处理</h2><p>删去~</p>
+<h2 id="异常值（离群点）处理"><a href="#异常值（离群点）处理" class="headerlink" title="异常值（离群点）处理"></a>异常值（离群点）处理</h2><ol>
+<li>判断是否为真异常：</li>
+</ol>
+<p>*一般用3σ法则、箱线图（四分位数）即可~&#x3D;</p>
+<p>*其他具体方法：</p>
+<ul>
+<li><p>基于绝对离差中位数(MAD)：采用计算各观测值与平均值的距离总和的方法。</p>
+</li>
+<li><p>基于距离：通过定义对象之间的临近性度量，根据距离判断异常对象是否远离其他对象。</p>
+</li>
+<li><p>基于密度：离群点的局部密度显著低于大部分近邻点，适用于非均匀的数据集</p>
+</li>
+<li><p>基于聚类：利用聚类算法，丢弃远离其他簇的小簇。</p>
+</li>
+</ul>
+<ol start="2">
+<li>处理（若为真异常值）：</li>
+</ol>
+<p>若样本较多可直接删除，也可以视为缺失值处理&#x2F;前后的平均值&#x2F;盖帽法（整行替换数据框里99%以上和1%以下的点，将99%以上的点值&#x3D;99%的点值；小于1%的点值&#x3D;1%的点值）</p>
+<p><img src="/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8EIO/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1688920498482.jpg" srcset="/img/loading.gif" lazyload alt="1688920498482"></p>
+<h1 id="数据预处理（更优化）"><a href="#数据预处理（更优化）" class="headerlink" title="数据预处理（更优化）"></a>数据预处理（更优化）</h1><h2 id="更改数据类型"><a href="#更改数据类型" class="headerlink" title="更改数据类型"></a>更改数据类型</h2><p>根据情况转换~</p>
+<h2 id="数据变换"><a href="#数据变换" class="headerlink" title="数据变换"></a>数据变换</h2><ol>
+<li>统一化（自创名词~）</li>
+</ol>
+<p>*无量纲化：用Xi&#x2F;Max-Xi&#x2F;Xi-Min&#x2F;Xi-μ去<strong>除以</strong>统计量（Max&#x2F;Min&#x2F;Max-Min&#x2F;μ&#x2F;标准差）</p>
+<p>*中心化：Xi-μ</p>
+<p>*归一化：Min-Max法（有一定的变式）、Z-score（又称标准化，即转化为标准正态分布）</p>
+<ol start="2">
+<li>离散化</li>
+</ol>
+<p>根据四分位（即处在第几分位）、区间宽度、频率、K-means模型聚出的类、与某个值的大小关系（二值&#x2F;01化）等等~</p>
+<ol start="3">
+<li>稀疏化</li>
+</ol>
+<p>暂无~</p>
+<h2 id="数据重塑（改变数据结构、改变行列分布、对原数据进行变形）"><a href="#数据重塑（改变数据结构、改变行列分布、对原数据进行变形）" class="headerlink" title="数据重塑（改变数据结构、改变行列分布、对原数据进行变形）"></a>数据重塑（改变数据结构、改变行列分布、对原数据进行变形）</h2><p>（DataFrame里面重塑时行索引永远还是行索引）</p>
+<h3 id="stack-列“旋转”成行"><a href="#stack-列“旋转”成行" class="headerlink" title="stack():列“旋转”成行"></a>stack():列“旋转”成行</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>A0</td>
+<td>B0</td>
+</tr>
+<tr>
+<td>b</td>
+<td>A1</td>
+<td>B1</td>
+</tr>
+</tbody></table>
+<p>​																		↓</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>A</th>
+<th>A0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>B</td>
+<td>B0</td>
+</tr>
+<tr>
+<td>b</td>
+<td>A</td>
+<td>A1</td>
+</tr>
+<tr>
+<td></td>
+<td>B</td>
+<td>B1</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">stack(self, level=-<span class="hljs-number">1</span>, dropna=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<p>level：表示操作内层索引。若设为0，表示操作外层索引，默认为-1</p>
+<p>dropna：表示是否将旋转后的缺失值删除，若设为True，则表示自动过滤缺失值，设置False则相反</p>
+<h3 id="unstack-行“旋转”成列（即上面的逆操作）"><a href="#unstack-行“旋转”成列（即上面的逆操作）" class="headerlink" title="unstack():行“旋转”成列（即上面的逆操作）"></a>unstack():行“旋转”成列（即上面的逆操作）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">unstack(self, level=-<span class="hljs-number">1</span>, fill_value=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+
+<p>level：表示操作内层索引。若设为0，表示操作外层索引，默认为-1</p>
+<p>fill_value：若产生了缺失值，则可以设置这个参数用来替换NaN</p>
+<h3 id="pivot-轴向旋转，会根据给定的行索引或列索引重新组织一个DataFrame对象"><a href="#pivot-轴向旋转，会根据给定的行索引或列索引重新组织一个DataFrame对象" class="headerlink" title="pivot():轴向旋转，会根据给定的行索引或列索引重新组织一个DataFrame对象"></a>pivot():轴向旋转，会根据给定的行索引或列索引重新组织一个DataFrame对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pivot(self, index=<span class="hljs-literal">None</span>, columns=<span class="hljs-literal">None</span>, values=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+
+<p>index：用于创建新DataFrame对象的行索引 。如果未设置，则使用原DataFrame对象的索引。</p>
+<p>columns：用于创建新DataFrame对象的列索引 。如果未设置，则使用原DataFrame对象的索引。</p>
+<p>values：用于填充新DataFrame对象中的值。</p>
+<h2 id="数据降噪-x2F-平滑化"><a href="#数据降噪-x2F-平滑化" class="headerlink" title="数据降噪&#x2F;平滑化"></a>数据降噪&#x2F;平滑化</h2><p>对数据进行分箱操作，等频或等宽分箱，然后用每个箱的平均数，中位数或者边界值(不同数据分布，处理方法不同)代替箱中所有的数，起到平滑数据的作用。</p>
+<h2 id="数据归约（在保持完整性的基础上减小内存等）"><a href="#数据归约（在保持完整性的基础上减小内存等）" class="headerlink" title="数据归约（在保持完整性的基础上减小内存等）"></a>数据归约（在保持完整性的基础上减小内存等）</h2><ol>
+<li>维度&#x2F;属性&#x2F;特征归约（即数据降维，针对属性）</li>
+</ol>
+<p>PCA、小波变换（WT）、傅里叶变换（FFT）、特征集选择（FSS）</p>
+<ol start="2">
+<li>数据采样（针对记录&#x2F;样本）</li>
+</ol>
+<p>减少取样的样本</p>
+<ol start="3">
+<li>特征值归约</li>
+</ol>
+<ul>
+<li>参数方法：用替代的、较小的数据表示替换或估计数据，如参数模型（只需要存放校型参数，而不是实际数据）</li>
+<li>非参数方法，如聚类、选样和使用直方图</li>
+</ul>
+<h2 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h2><p>PCA、独立成分分析（ICA）、线性判别分析（LDA）</p>
+<ul>
+<li><p>PCA:SPSSPro&#x2F;SPSSAU;LDA:SPSSAU</p>
+</li>
+<li><p>ICA:一般处理信号时用它提取信号的主要有效成分</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/" class="category-chain-item">数据分析&amp;挖掘</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E6%8C%96%E6%8E%98/2-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-IO/" class="category-chain-item">2.数据处理&amp;IO</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="print-no-link">#数据分析</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据处理</div>
+      <div>http://zuoyerumeng.site/2023/07/10/数据分析与挖掘/数据处理与IO/数据处理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>昨夜如梦</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月10日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8EIO/%E5%AE%B9%E5%99%A8%E4%BA%92%E5%AF%BC/" title="容器互导">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">容器互导</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/10/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98/%E7%88%AC%E8%99%AB/%E7%BD%91%E7%AB%99%E7%B3%BB%E7%BB%9F%E7%88%AC%E8%99%AB/%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B8%8E%E6%B5%81%E7%A8%8B/" title="工作原理与流程">
+                        <span class="hidden-mobile">工作原理与流程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478147&auto=1&height=66"></iframe>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zuoyerumeng/commit-utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+<script src="https://utteranc.es/client.js"
+        repo="zuoyerumeng/commit-utterance"
+        issue-term="title"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2023023503号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2d-widget/autoload.js"></script>
+<script type="text/javascript" src="/js/text.js"></script>
+<script type="text/javascript" src="/js/love.js"></script>
+<script src="https://files.cnblogs.com/files/quaint/sakuraPlus.js"></script>
+<script type="text/javascript" src="/js/sakura.js"></script>
+</body>
+</html>
